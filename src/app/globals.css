@@ -202,3 +202,54 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Typography */
+.bold-heading {
+  @apply text-6xl font-bold;
+}
+.bold-subheading {
+  @apply text-xl font-bold;
+}
+
+.heading {
+  @apply text-3xl;
+}
+.subheading {
+  @apply text-2xl;
+}
+.bold-subheading {
+  @apply text-2xl font-bold;
+}
+
+.body {
+  @apply text-xl;
+}
+.bold-body {
+  @apply text-xl font-bold;
+}
+
+.caption {
+  @apply text-sm;
+}
+.title {
+  @apply font-bold;
+}
+
+/* Link */
+.link {
+  @apply relative inline-block text-blue-400 transition-colors duration-200;
+}
+.link::after {
+  content: '';
+  @apply absolute left-0 -bottom-0.5 h-[2px] w-0 transition-all duration-100 ease-in-out;
+}
+.link:hover {
+  @apply text-blue-500;
+}
+.link:hover::after {
+  @apply w-full bg-blue-500;
+}
+
+.padding {
+  @apply px-4 sm:px-6 lg:px-8;
+}
