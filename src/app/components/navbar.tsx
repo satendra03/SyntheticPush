@@ -32,7 +32,7 @@ export const Navbar = () => {
           <div className="flex items-center lg:hidden">
             <button
               onClick={() => setMobileOpen(true)}
-              className="inline-flex items-center justify-center p-2 rounded-md hover:bg-border focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md cursor-pointer focus:outline-none"
               aria-label="Open main menu"
             >
               <svg

@@ -241,7 +241,7 @@
 
 /* Link */
 .link {
-  @apply relative inline-block text-blue-400 hover:text-blue-500 transition-colors duration-200;
+  @apply cursor-pointer relative inline-block text-blue-400 hover:text-blue-500 transition-colors duration-200;
 }
 .link:hover::after {
   @apply w-full bg-blue-500;
@@ -252,7 +252,7 @@
 }
 
 .muted-link {
-  @apply text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200;
+  @apply cursor-pointer text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200;
 }
 
 .padding {

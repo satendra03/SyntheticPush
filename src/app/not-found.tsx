@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="h-64 border-white border">
-      <div className="mobile-404 lg:hidden flex h-full flex-col items-center justify-center">
+    <div className="h-[50vh]">
+      <div className="flex h-full flex-col items-center justify-center">
         <h1 className="text-7xl font-black flex items-center justify-center gap-2">
           4 <GitHubIcon className="w-16 h-16" /> 4
         </h1>
