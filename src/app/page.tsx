@@ -7,8 +7,8 @@ export default function Home() {
   
 
   return (
-    <div className="flex flex-col items-center h-[300vh] gap-2">
-      <h1 className="title mt-20">SyntheticPush</h1>
+    <div className="flex flex-col items-center gap-2">
+      <h1 className="title">SyntheticPush</h1>
       <p className="body">Create you own commits on GitHub</p>
       <Button variant="green">Sign up for GitHub</Button>
       <Button variant="dark">Sign up for GitHub</Button>

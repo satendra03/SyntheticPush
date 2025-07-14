@@ -1,12 +1,22 @@
 // src/app/data/navbar-links.ts
 
-export const navbarLinks = [
+import { Link } from "../types";
+
+export const navbarLinks: Link[] = [
     {
-        name: "Home",
+        title: "Home",
         href: "/",
     },
     {
-        name: "About",
+        title: "About",
         href: "/about",
+    },
+    {
+        title: "Pricing",
+        href: "/pricing",
+    },
+    {
+        title: "Contact",
+        href: "/contact",
     },
 ]
