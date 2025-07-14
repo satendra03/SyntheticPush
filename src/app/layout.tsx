@@ -34,7 +34,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Navbar />
           <main className="flex-1 pt-20">
-            <div className="container">
+            <div className="">
               {children}
             </div>
           </main>

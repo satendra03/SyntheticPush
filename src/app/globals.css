@@ -212,7 +212,7 @@
 
 /* Typography */
 .bold-heading {
-  @apply text-5xl font-bold;
+  @apply text-5xl lg:text-7xl font-bold;
 }
 
 .heading {

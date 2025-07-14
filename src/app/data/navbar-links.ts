@@ -3,20 +3,7 @@
 import { Link } from "../types";
 
 export const navbarLinks: Link[] = [
-    {
-        title: "Home",
-        href: "/",
-    },
-    {
-        title: "About",
-        href: "/about",
-    },
-    {
-        title: "Pricing",
-        href: "/pricing",
-    },
-    {
-        title: "Contact",
-        href: "/contact",
-    },
+    { title: "Home", href: "/" },
+    { title: "Features", href: "/features" },
+    { title: "Pricing", href: "/pricing" },
 ]

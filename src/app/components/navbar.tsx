@@ -52,7 +52,7 @@ export const Navbar = () => {
           </div>
 
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="hidden lg:flex items-center">
             <Link href="/">
               <span className="sr-only">SyntheticPush</span>
               <GitHubIcon />
@@ -72,6 +72,7 @@ export const Navbar = () => {
           {/* Auth buttons */}
           <div className="flex items-center space-x-2 ml-4">
             <Button variant="outline">Sign up</Button>
+            <SwitchTheme />
           </div>
         </div>
       </div>
