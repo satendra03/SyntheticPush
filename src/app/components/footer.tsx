@@ -1,6 +1,7 @@
 // src/app/components/footer.tsx
 "use client";
-import { footerLinks } from "@/app/data/footer-links";
+
+import { footerLinks } from "@/app/data";
 import { GitHubIcon } from "@/icons";
 import Link from "next/link";
 
@@ -20,7 +21,7 @@ export const Footer = () => {
           {footerLinks.map((link) => (
             <div key={link.title} className="flex flex-col">
               <h2 className="font-mono">{link.title}</h2>
-              <div className="flex flex-col mt-2 gap-1.5">
+              <div className="flex flex-col w-fit mt-2 gap-1.5">
                 {link.links.map((link) => (
                   <Link href={link.href} key={link.title}>
                     <p className="body muted-link">{link.title}</p>

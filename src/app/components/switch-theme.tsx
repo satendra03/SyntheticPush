@@ -11,7 +11,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export function SwitchTheme() {
+export const SwitchTheme = () => {
   const { setTheme, theme } = useTheme();
   return (
     <Tooltip>
@@ -30,4 +30,4 @@ export function SwitchTheme() {
       </TooltipContent>
     </Tooltip>
   );
-}
+};

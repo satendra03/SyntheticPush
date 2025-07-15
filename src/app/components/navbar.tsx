@@ -5,9 +5,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { GitHubIcon } from "@/icons/index";
-import { SearchBar } from "./navbar/search-bar";
-import { SwitchTheme } from "./switch-theme";
-import { NavLinksDesktop, NavLinksMobile } from "./navbar/nav-links";
+import { SearchBar, SwitchTheme, NavLinksDesktop, NavLinksMobile } from "@/app/components";
 
 export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -104,7 +102,7 @@ export const Navbar = () => {
               <GitHubIcon />
             </div>
             <div className="flex-1 flex flex-col gap-2 px-4 py-6">
-              <NavLinksMobile />
+              <NavLinksMobile setMobileOpen={setMobileOpen} />
               <div className="px-4 p-4 flex flex-col w-full">
                 <SearchBar
                   className="w-full mb-4"
