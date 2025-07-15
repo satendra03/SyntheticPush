@@ -13,15 +13,10 @@ export const SearchBar = ({
   className?: string;
 }) => {
   const [search, setSearch] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = () => {
-    setIsLoading(true);
     // TODO: Implement search logic
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Searched for: " + search);
-    }, 2000);
+    alert("Searched for: " + search);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

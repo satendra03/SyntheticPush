@@ -3,11 +3,11 @@ import {
   enrichTweet,
   type EnrichedTweet,
   type TweetProps,
-  type TwitterComponents,
 } from "react-tweet";
 import { getTweet, type Tweet } from "react-tweet/api";
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface TwitterIconProps {
   className?: string;
@@ -103,13 +103,13 @@ export const TweetHeader = ({ tweet }: { tweet: EnrichedTweet }) => (
   <div className="flex flex-row justify-between tracking-tight">
     <div className="flex items-center space-x-2">
       <a href={tweet.user.url} target="_blank" rel="noreferrer">
-        <img
+        <Image
           title={`Profile picture of ${tweet.user.name}`}
           alt={tweet.user.screen_name}
-          height={48}
-          width={48}
           src={tweet.user.profile_image_url_https}
           className="overflow-hidden rounded-full border border-transparent"
+          width={48}
+          height={48}
         />
       </a>
       <div>
@@ -197,12 +197,14 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
         <div className="relative flex transform-gpu snap-x snap-mandatory gap-4 overflow-x-auto">
           <div className="shrink-0 snap-center sm:w-2" />
           {tweet.photos.map((photo) => (
-            <img
+            <Image
               key={photo.url}
               src={photo.url}
               title={"Photo by " + tweet.user.name}
               alt={tweet.text}
               className="h-64 w-5/6 shrink-0 snap-center snap-always rounded-xl border object-cover shadow-sm"
+              width={100}
+              height={100}
             />
           ))}
           <div className="shrink-0 snap-center sm:w-2" />
@@ -210,15 +212,17 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
       )}
       {!tweet.video &&
         !tweet.photos &&
-        // @ts-ignore
+        // @ts-expect-error: tweet.card.binding_values.thumbnail_image_large.image_value.url is not defined
         tweet?.card?.binding_values?.thumbnail_image_large?.image_value.url && (
-          <img
+          <Image
             src={
-              // @ts-ignore
+              // @ts-expect-error: tweet.card.binding_values.thumbnail_image_large.image_value.url is not defined
               tweet.card.binding_values.thumbnail_image_large.image_value.url
             }
             className="h-64 rounded-xl border object-cover shadow-sm"
             alt={tweet.text}
+            width={100}
+            height={100}
           />
         )}
     </div>
@@ -227,12 +231,10 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
 
 export const MagicTweet = ({
   tweet,
-  components,
   className,
   ...props
 }: {
   tweet: Tweet;
-  components?: TwitterComponents;
   className?: string;
 }) => {
   const enrichedTweet = enrichTweet(tweet);

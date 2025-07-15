@@ -11,7 +11,7 @@ export default function NotFound() {
         <h1 className="text-7xl font-black flex items-center justify-center gap-2">
           4 <GitHubIcon className="w-16 h-16" /> 4
         </h1>
-        <p className="font-bold">The page you're looking for doesn't exist.</p>
+        <p className="font-bold">The page you&apos;re looking for doesn&apos;t exist.</p>
         <p>
           Need to{" "}  
           <Link href="/" className="link">
