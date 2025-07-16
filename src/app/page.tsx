@@ -10,6 +10,7 @@ import {
   Testimonials,
   Pricing,
   HeroVideo,
+  SwitchTheme,
 } from "@/app/components";
 import { Badge } from "@/components/ui/badge";
 import { BadgeCheckIcon } from "lucide-react";
@@ -19,7 +20,10 @@ import { useState } from "react";
 export default function Home() {
   const [clicked, setClicked] = useState(false);
   return (
-    <>
+    <div className="relative">
+      <div className="fixed z-50 bottom-10 right-5">
+        <SwitchTheme />
+      </div>
       <div className="bg-[url('/main-bg.png')] bg-no-repeat container bg-cover bg-center">
         {/* Main content */}
         <div id="home" className="main-content w-[80%] lg:w-full pt-20 lg:pt-20 mx-auto text-center">
@@ -125,6 +129,6 @@ export default function Home() {
         <Testimonials />
       </div>
 
-    </>
+    </div>
   );
 }

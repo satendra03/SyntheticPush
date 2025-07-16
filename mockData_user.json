@@ -1,0 +1,24 @@
+{
+    "github": {
+      "id": "12345678",
+      "username": "satendraparteti",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/12345678",
+      "profileUrl": "https://github.com/satendraparteti"
+    },
+
+    "credits": 10,
+    "joinedAt": "2025-07-15T10:00:00.000Z",
+    "history": [
+      {
+        "type": "signup",
+        "value": 10,
+        "createdAt": "2025-07-15T10:00:00.000Z"
+      },
+      {
+        "type": "tweet",
+        "value": 10,
+        "createdAt": "2025-07-16T08:30:00.000Z"
+      }
+    ]
+  }
+  

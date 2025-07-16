@@ -19,5 +19,23 @@ export interface CardType {
 }
 
 export interface TestimonialType {
+    name: string;
+    image: string;
+    text: string;
+    rating: number;
+}
+
+export interface History {
+    type: string;
+    value: number;
+    createdAt: string;
+}
+
+export interface User {
     id: string;
+    username: string;
+    avatarUrl: string;
+    credits: number;
+    joinedAt: string;
+    history: History[];
 }

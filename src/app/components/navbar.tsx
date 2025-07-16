@@ -3,9 +3,9 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { GitHubIcon } from "@/icons/index";
-import { SearchBar, SwitchTheme, NavLinksDesktop, NavLinksMobile } from "@/app/components";
+import { SearchBar, NavLinksDesktop, NavLinksMobile } from "@/app/components";
+import { AuthButton } from "@/app/components/auth/auth-button";
 
 export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -69,8 +69,7 @@ export const Navbar = () => {
 
           {/* Auth buttons */}
           <div className="flex items-center space-x-2 ml-4">
-            <Button variant="outline">Sign up</Button>
-            <SwitchTheme />
+            <AuthButton />
           </div>
         </div>
       </div>
@@ -108,16 +107,7 @@ export const Navbar = () => {
                   className="w-full mb-4"
                   placeholder="Search GitHub account"
                 />
-                <Button variant="outline" className="w-full">
-                  Sign up
-                </Button>
               </div>
-            </div>
-            <div className="flex flex-col gap-2 px-4 py-6">
-              <p className="text-sm text-foreground/50 text-center">
-                Switch Theme
-              </p>
-              <SwitchTheme />
             </div>
           </div>
         </div>
