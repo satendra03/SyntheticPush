@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider, Navbar, Footer, BottomFooter } from "@/app/components";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "SyntheticPush | Create your own commits on GitHub",
@@ -19,6 +20,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1 pt-20 min-w-sm">
             <div>{children}</div>
+            <Analytics />
           </main>
           <Footer />
           <BottomFooter />
