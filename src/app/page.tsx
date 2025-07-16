@@ -56,7 +56,7 @@ export default function Home() {
       <div id="problem" className="container mx-auto section">
         <h1 className="heading text-center">Problem</h1>
         <p className="text-center caption">
-          If your graph needs love, we've got{" "}
+          If your graph needs love, we&rsquo;ve got{" "}
           <span className="text-green-400">green</span> for that.
         </p>
         <Problems />
@@ -69,7 +69,7 @@ export default function Home() {
       <div id="solution" className="container mx-auto section">
         <h1 className="heading text-center">Solution</h1>
         <p className="text-center caption">
-          This won't replace hard work, but it does replace an{" "}
+          This won&rsquo;t replace hard work, but it does replace an{" "}
           <span className="text-green-400">empty box</span>.
         </p>
         <Solutions />
@@ -114,7 +114,7 @@ export default function Home() {
       <div id="testimonials" className="container mx-auto section">
         <h1 className="heading text-center">Testimonials</h1>
         <p className="text-center caption">
-          We could hype ourselves up — but we'll let the{" "}
+          We could hype ourselves up — but we&rsquo;ll let the{" "}
           <span className="text-green-400">devs</span> do it instead.
         </p>
         <p className="text-center caption">
