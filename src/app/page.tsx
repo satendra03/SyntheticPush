@@ -9,6 +9,7 @@ import {
   Solutions,
   Testimonials,
   Pricing,
+  HeroVideo,
 } from "@/app/components";
 import { Badge } from "@/components/ui/badge";
 import { BadgeCheckIcon } from "lucide-react";
@@ -42,7 +43,7 @@ export default function Home() {
         </div>
         {/* Video */}
         <div className="video p-2 mb-10 lg:p-4 bg-foreground/20 rounded-2xl overflow-hidden">
-          <video src="/hero.mp4" autoPlay muted loop className="rounded-2xl" />
+          <HeroVideo />
         </div>
       </div>
 
@@ -55,7 +56,7 @@ export default function Home() {
       <div id="problem" className="container mx-auto section">
         <h1 className="heading text-center">Problem</h1>
         <p className="text-center caption">
-          If your graph needs love, we&apos;ve got{" "}
+          If your graph needs love, we've got{" "}
           <span className="text-green-400">green</span> for that.
         </p>
         <Problems />
@@ -68,7 +69,7 @@ export default function Home() {
       <div id="solution" className="container mx-auto section">
         <h1 className="heading text-center">Solution</h1>
         <p className="text-center caption">
-          This won&apos;t replace hard work, but it does replace an{" "}
+          This won't replace hard work, but it does replace an{" "}
           <span className="text-green-400">empty box</span>.
         </p>
         <Solutions />
@@ -100,7 +101,7 @@ export default function Home() {
           onClick={() => setClicked(true)}
         >
           <p className="text-center caption">
-            {clicked ? "Yepp! that&apos;s reality! 😭" : "Because we&apos;re nice."}
+            {clicked ? "Yepp! that's reality! 😭" : "Because we're nice."}
           </p>
         </Link>
         <Pricing />
@@ -113,7 +114,7 @@ export default function Home() {
       <div id="testimonials" className="container mx-auto section">
         <h1 className="heading text-center">Testimonials</h1>
         <p className="text-center caption">
-          We could hype ourselves up — but we&apos;ll let the{" "}
+          We could hype ourselves up — but we'll let the{" "}
           <span className="text-green-400">devs</span> do it instead.
         </p>
         <p className="text-center caption">

@@ -14,3 +14,4 @@ export * from "./problems";
 export * from "./solutions";
 export * from "./testimonials";
 export * from "./pricing";
+export * from "./hero-video";
