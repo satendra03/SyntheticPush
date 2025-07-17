@@ -40,6 +40,7 @@ export const jwtCallback = async ({
         token.username = userData.github.username;
         token.avatarUrl = userData.github.avatarUrl;
         token.credits = userData.credits;
+        token.accessToken = account?.access_token || "";
         console.log("Token updated with user data");
       } else {
         console.error("Failed to fetch or create user data");

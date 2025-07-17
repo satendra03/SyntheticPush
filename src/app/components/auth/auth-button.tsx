@@ -18,7 +18,7 @@ export const AuthButton = () => {
   if (!session) {
     return (
       <Button variant="outline" onClick={() => signIn("github")}>
-        Sign in
+        Sign up
       </Button>
     );
   }

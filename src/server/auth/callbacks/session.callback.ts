@@ -8,6 +8,7 @@ export const sessionCallback = async ({ session, token }: { session: Session, to
     session.user.username = token.username;
     session.user.avatarUrl = token.avatarUrl;
     session.user.id = token.id;
+    session.user.accessToken = token.accessToken;
   }
   return session;
 };

@@ -12,13 +12,18 @@ import {
   HeroVideo,
   SwitchTheme,
 } from "@/app/components";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { Badge } from "@/components/ui/badge";
 import { BadgeCheckIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const { data: session } = useSession();
   const [clicked, setClicked] = useState(false);
+  const router = useRouter();
   return (
     <div className="relative">
       <div className="fixed z-50 bottom-10 right-5">
@@ -42,7 +47,11 @@ export default function Home() {
             </Badge>
           </h1>
           <div className="buttons my-10 flex gap-2 items-center justify-center">
-            <Button variant="green">Signup using GitHub</Button>
+            {session ? 
+            <InteractiveHoverButton onClick={() => router.push(`/dashboard/${session.user?.username}`)}>Let's make it Green</InteractiveHoverButton> 
+            : 
+            <Button variant="green" onClick={() => router.push("/signup-first")}>Signup using GitHub to use the app</Button>
+            }
           </div>
         </div>
         {/* Video */}
