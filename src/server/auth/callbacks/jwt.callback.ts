@@ -22,6 +22,14 @@ export const jwtCallback = async ({
     console.log("Account provider:", account?.provider);
     console.log("Profile:", profile?.name);
 
+    console.log();
+    console.log("This is complete user", user);
+    console.log("This is complete account", account);
+    console.log("This is complete profile", profile);
+    console.log("This is complete token", token);
+    console.log("--------------------------------");
+    console.log();
+
     if (user && account) {
       console.log("Processing user and account data");
       const userData = await fetchOrCreateUser({ user, account, profile });

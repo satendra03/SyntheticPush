@@ -2,7 +2,7 @@
 "use client";
 
 import { Cloud, DollarSign, Hand, Terminal } from "lucide-react";
-import { CardType } from "@/app/types";
+import { CardType } from "@/types";
 
 export const features: CardType[] = [
     {

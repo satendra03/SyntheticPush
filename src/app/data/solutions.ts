@@ -1,7 +1,7 @@
 // src/app/data/solutions.ts
 "use client";
 
-import { CardType } from "@/app/types";
+import { CardType } from "@/types";
 import { Calendar, CreditCard, GitBranch, User } from "lucide-react";
 
 export const solutions: CardType[] = [

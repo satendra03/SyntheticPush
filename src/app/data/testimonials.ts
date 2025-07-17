@@ -1,6 +1,6 @@
 "use client";
 
-import { TestimonialType } from "@/app/types";
+import { TestimonialType } from "@/types";
 
 export const testimonials: TestimonialType[] = [
     { id: "1928051224391094649" },

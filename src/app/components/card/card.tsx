@@ -1,7 +1,7 @@
 // src/app/components/card/card.tsx
 "use client";
 
-import { CardType } from "@/app/types";
+import { CardType } from "@/types";
 import { cn } from "@/lib/utils";
 
 export const Card = ({

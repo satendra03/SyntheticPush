@@ -1,5 +1,5 @@
 // src/app/data/footer-links.ts
-import { FooterLink } from "@/app/types";
+import { FooterLink } from "@/types";
 
 export const footerLinks: FooterLink[] = [
     {

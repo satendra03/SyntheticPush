@@ -1,7 +1,7 @@
 // src/app/data/problems.ts
 "use client";
 
-import { CardType } from "@/app/types";
+import { CardType } from "@/types";
 import { Bed, Flag, Clock, FileWarning } from "lucide-react";
 
 export const problems: CardType[] = [
