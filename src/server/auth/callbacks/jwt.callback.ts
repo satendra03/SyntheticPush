@@ -4,6 +4,7 @@ import type { JWT } from "next-auth/jwt";
 import type { Account, Profile } from "next-auth";
 import type { AdapterUser } from "next-auth/adapters";
 import { fetchOrCreateUser } from "@/server/services/user.service";
+import { useUser } from "@/app/context/user-context";
 
 export const jwtCallback = async ({
   token,
@@ -35,7 +36,10 @@ export const jwtCallback = async ({
       const userData = await fetchOrCreateUser({ user, account, profile });
 
       if (userData) {
-        console.log("User data successfully fetched/created:", userData.github.username);
+        console.log(
+          "User data successfully fetched/created:",
+          userData.github.username
+        );
         token.id = userData.github.id;
         token.username = userData.github.username;
         token.avatarUrl = userData.github.avatarUrl;

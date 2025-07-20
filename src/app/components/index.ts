@@ -15,3 +15,6 @@ export * from "./solutions";
 export * from "./testimonials";
 export * from "./pricing";
 export * from "./hero-video";
+export * from "./repositories";
+export * from "./repositories/repo-card";
+export * from "./profile";

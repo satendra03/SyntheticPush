@@ -32,13 +32,25 @@ export interface Link {
   // Updated User interface
   export interface User {
     id: string;
-    name?: string;
+    name?: string | null;
     email?: string;
-    image?: string;
     username: string;
     avatarUrl: string;
+    accessToken: string;
     credits: number;
-    joinedAt?: string; // optional if not always present
-    history?: History[]; // optional if not always fetched
   }
+
+  // export interface CompleteUser extends UserModel {
   
+
+  // User Context
+  export interface UserContextType {
+    user: User | null;
+    setUser: (user: User | null) => void;
+    isLoading: boolean;
+    setIsLoading: (isLoading: boolean) => void;
+    isAuthenticated: boolean;
+    setIsAuthenticated: (isAuthenticated: boolean) => void;
+    error: string | null;
+    setError: (error: string | null) => void;
+  }
