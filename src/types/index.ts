@@ -40,17 +40,17 @@ export interface Link {
     credits: number;
   }
 
-  // export interface CompleteUser extends UserModel {
-  
-
-  // User Context
-  export interface UserContextType {
-    user: User | null;
-    setUser: (user: User | null) => void;
-    isLoading: boolean;
-    setIsLoading: (isLoading: boolean) => void;
-    isAuthenticated: boolean;
-    setIsAuthenticated: (isAuthenticated: boolean) => void;
-    error: string | null;
-    setError: (error: string | null) => void;
+  export interface ProfileType {
+    id: number;
+    name: string;
+    bio: string;
+    blog: string;
+    company: string;
+    email: string;
+    followers: number;
+    following: number;
+    html_url: string;
+    location: string;
+    login: string;
+    twitter_username: string;
   }

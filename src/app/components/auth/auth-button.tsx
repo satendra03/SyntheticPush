@@ -11,11 +11,9 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useUser } from "@/app/context/user-context";
 
 export const AuthButton = () => {
   const { data: session } = useSession();
-  const { setUser, setIsAuthenticated } = useUser();
   if (!session) {
     return (
       <Button variant="outline" onClick={() => signIn("github")}>
@@ -53,11 +51,7 @@ export const AuthButton = () => {
           <Button
             variant="noOutline"
             className="outline-none cursor-pointer"
-            onClick={() => {
-              setIsAuthenticated(false);
-              setUser(null);
-              signOut();
-            }}
+            onClick={() => { signOut() }}
           >
             Sign out
           </Button>

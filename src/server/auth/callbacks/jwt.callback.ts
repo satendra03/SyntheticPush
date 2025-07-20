@@ -4,7 +4,6 @@ import type { JWT } from "next-auth/jwt";
 import type { Account, Profile } from "next-auth";
 import type { AdapterUser } from "next-auth/adapters";
 import { fetchOrCreateUser } from "@/server/services/user.service";
-import { useUser } from "@/app/context/user-context";
 
 export const jwtCallback = async ({
   token,

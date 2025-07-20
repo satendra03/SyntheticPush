@@ -6,30 +6,27 @@ import { Star } from "lucide-react";
 
 export const RepoCard = ({ repo }: { repo: any }) => {
   return (
-    <div className=" p-2 flex items-start justify-between">
-        {/* left side */}
-    <div className=" flex flex-col justify-between gap-2 ">
-      <div className="flex flex-col justify-between">
-        <div className="repo-title flex items-center gap-2">
-          <h1 className="subheading text-blue-400">{repo.name}</h1>
-          <Badge variant="outline" className="rounded-full font-bold">{repo.visibility}</Badge>
-        </div>
-        <p className="caption">{repo.description}</p>
-      </div>
-      <div className="stats flex items-center gap-2">
-        {repo.language && <Badge variant="outline">{repo.language}</Badge>}
-        {repo.stargazers_count != 0 && (
-          <div className="flex items-center caption gap-1">
-            <Star size={15} /> {repo.stargazers_count}
+    <div className="p-2 grid grid-cols-[90%_1fr]">
+      {/* left side */}
+      <div className=" flex flex-col justify-between gap-2 ">
+        <div className="flex flex-col justify-between">
+          <div className="repo-title flex items-center gap-2">
+            <h1 className="subheading text-blue-400">{repo.name}</h1>
+            <Badge variant="outline" className="rounded-full font-bold">
+              {repo.visibility}
+            </Badge>
           </div>
-        )}
-      </div>
-    </div>
-
-        {/* right side */}
-        <div className="start">
-            <Badge variant="outline" >Star</Badge>
+          <p className="caption">{repo.description}</p>
         </div>
+        <div className="stats flex items-center gap-2">
+          {repo.language && <Badge variant="outline">{repo.language}</Badge>}
+          {repo.stargazers_count != 0 && (
+            <div className="flex items-center caption gap-1">
+              <Star size={15} /> {repo.stargazers_count}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
