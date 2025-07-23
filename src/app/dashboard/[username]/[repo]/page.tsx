@@ -94,7 +94,7 @@ const Repo = () => {
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
       console.log("Push result:", data);
-      toast.success("Push successful");
+      toast.success(`${data.success ? "Push successful" : "Push failed"}`);
     } catch (err) {
       setError("Failed to push: " + err);
     } finally {
