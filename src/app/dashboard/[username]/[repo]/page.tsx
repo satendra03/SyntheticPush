@@ -79,13 +79,21 @@ const Repo = () => {
     setIsLoading(true);
     setError("");
     try {
+      const localDate = values.singleDate;
+      let dateToSend = "";
+      if (localDate) {
+        localDate.setHours(12, 0, 0, 0);
+        dateToSend = localDate.toISOString();
+      }
+
       const payload: SyntheticPushPayload = {
-        date: values.singleDate?.toISOString() || "",
+        date: dateToSend || "",
         repo: `${username}/${repo}`,
         accessToken: session?.user?.accessToken || "",
         authorName: session?.user?.username || "",
         authorEmail: session?.user?.email || "",
       };
+      console.log("THis is payload", payload);
       const res = await fetch("/api/github/push", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -359,7 +367,7 @@ const Repo = () => {
               type="submit"
               className="w-full bg-green-500 hover:bg-green-600 active:scale-95 transition-all cursor-pointer text-lg font-semibold"
             >
-              {isLoading ? <Loader2 /> : "Submit"}
+              {isLoading ? <Loader2 className="animate-spin" /> : "Submit"}
             </Button>
           </form>
         </Form>

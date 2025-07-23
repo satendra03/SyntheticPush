@@ -3,7 +3,7 @@
 import { GitHubInfo, TwitterInfo } from "@/server/dtos/user.dto";
 
 export interface UserHistoryEntry {
-  type: "signup" | "tweet" | "purchase";
+  type: "signup" | "tweet" | "purchase" | "push";
   value: number;
   createdAt: FirebaseFirestore.Timestamp | Date;
 }

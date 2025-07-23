@@ -11,9 +11,22 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 export const AuthButton = () => {
   const { data: session } = useSession();
+  const [credits, setCredits] = useState(0);
+
+
+  useEffect(()=>{
+    const fetchCredits = async () => {
+      const res = await fetch("/api/firebase/credits");
+      const data = await res.json();
+      setCredits(data.credits);
+    };
+    fetchCredits();
+  }, [])
+
   if (!session) {
     return (
       <Button variant="outline" onClick={() => signIn("github")}>
@@ -43,13 +56,13 @@ export const AuthButton = () => {
         <DropdownMenuItem asChild>
           <div className="flex items-center justify-center gap-2">
             <span>Available Credits:</span>
-            <span className="font-bold text-green-500">100</span>
+            <span className="font-bold text-green-500">{credits}</span>
             <span>Credits</span>
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Button
-            variant="noOutline"
+            variant="outline"
             className="outline-none cursor-pointer"
             onClick={() => { signOut() }}
           >

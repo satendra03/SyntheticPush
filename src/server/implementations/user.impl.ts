@@ -81,3 +81,19 @@ export const createUserIfNotExists = async (dto: CreateUserDTO): Promise<UserMod
     throw error;
   }
 };
+
+
+export const updateUserCredits = async (username: string, credits: number) => {
+  const user = await findUserByUsername(username);
+  if (!user) {
+    return { error: "User not found" };
+  }
+  await db.collection("users").doc(username).update({ credits });
+  return { success: true, credits };
+};
+
+
+
+
+
+
