@@ -9,6 +9,7 @@ import {
 } from "@/app/components";
 import { Analytics } from "@vercel/analytics/next";
 import { SessionWrapper } from "@/app/providers/session-provider";
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
   title: "SyntheticPush | Create your own commits on GitHub",
@@ -30,6 +31,7 @@ export default function RootLayout({
               <div>{children}</div>
               <div className="fixed z-50 bottom-10 right-5">
                 <SwitchTheme />
+                <Toaster />
               </div>
               <Analytics />
             </main>

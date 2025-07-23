@@ -8,6 +8,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
+import { formSchema, SyntheticPushPayload } from "@/types";
+import { toast } from "sonner"
+
 
 import {
   Form,
@@ -45,61 +48,16 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 
 const today = new Date();
-const earliestDate = new Date("2000-01-01");
-
-export const formSchema = z
-  .object({
-    mode: z.enum(["single", "range", "year"]),
-    singleDate: z.date().optional(),
-    startDate: z.date().optional(),
-    endDate: z.date().optional(),
-    year: z
-      .string()
-      .optional()
-      .refine(
-        (val) => {
-          if (!val) return true;
-          const yearNum = parseInt(val, 10);
-          return yearNum >= 2000 && yearNum < today.getFullYear();
-        },
-        {
-          message: `Year must be between 2000 and ${today.getFullYear() - 1}`,
-          path: ["year"],
-        }
-      ),
-  })
-  // Validate required fields per mode
-  .refine(
-    (data) => {
-      if (data.mode === "single") return !!data.singleDate;
-      if (data.mode === "range") return !!data.startDate && !!data.endDate;
-      if (data.mode === "year") return !!data.year;
-      return false;
-    },
-    {
-      message: "Please fill all required fields for the selected mode.",
-      path: ["mode"],
-    }
-  )
-  // Ensure endDate > startDate for range mode
-  .refine(
-    (data) => {
-      if (data.mode === "range" && data.startDate && data.endDate) {
-        return data.endDate > data.startDate;
-      }
-      return true;
-    },
-    {
-      message: "End date must be after start date.",
-      path: ["endDate"],
-    }
-  );
+const earliestDate = new Date("2020-01-01");
 
 type FormSchema = z.infer<typeof formSchema>;
 
 const Repo = () => {
+  const { data: session } = useSession();
+
   const { username, repo } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -113,8 +71,35 @@ const Repo = () => {
 
   const mode = form.watch("mode");
 
-  const onSubmit = (values: FormSchema) => {
-    console.log("Form Submitted:", values);
+  const onSubmit = async (values: FormSchema) => {
+    if(!know) {
+      toast.error("Please read the disclaimer first");
+      return;
+    }
+    setIsLoading(true);
+    setError("");
+    try {
+      const payload: SyntheticPushPayload = {
+        date: values.singleDate?.toISOString() || "",
+        repo: `${username}/${repo}`,
+        accessToken: session?.user?.accessToken || "",
+        authorName: session?.user?.username || "",
+        authorEmail: session?.user?.email || "",
+      };
+      const res = await fetch("/api/github/push", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("API error");
+      const data = await res.json();
+      console.log("Push result:", data);
+      toast.success("Push successful");
+    } catch (err) {
+      setError("Failed to push: " + err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -166,21 +151,10 @@ const Repo = () => {
       </div>
 
       <div className="w-full max-w-lg rounded-2xl shadow-xl p-8 border backdrop-blur-md">
-        <h2 className="text-2xl font-bold mb-2 text-center">
-          Repository Date Filter
-        </h2>
+        <h2 className="text-2xl font-bold mb-2 text-center">Date Selector</h2>
         <p className="text-muted-foreground mb-8 text-center text-sm">
-          Select a mode and provide the required date(s) to filter repository
-          data.
+          Select a mode and provide the required date(s) to do the work!!! data.
         </p>
-
-        {isLoading && (
-          <div className="flex items-center gap-2 text-muted-foreground mb-4 justify-center">
-            <Loader2 className="animate-spin" size={20} />
-            Fetching repo...
-          </div>
-        )}
-        {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -200,8 +174,18 @@ const Repo = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="single">Single Date</SelectItem>
-                        <SelectItem value="range">Date Range</SelectItem>
-                        <SelectItem value="year">Year</SelectItem>
+                        <SelectItem value="range" disabled>
+                          Date Range{" "}
+                          <i className="text-muted-foreground text-sm">
+                            (Coming Soon...)
+                          </i>
+                        </SelectItem>
+                        <SelectItem value="year" disabled>
+                          Year{" "}
+                          <i className="text-muted-foreground text-sm">
+                            (Coming Soon...)
+                          </i>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -375,7 +359,7 @@ const Repo = () => {
               type="submit"
               className="w-full bg-green-500 hover:bg-green-600 active:scale-95 transition-all cursor-pointer text-lg font-semibold"
             >
-              Submit
+              {isLoading ? <Loader2 /> : "Submit"}
             </Button>
           </form>
         </Form>
