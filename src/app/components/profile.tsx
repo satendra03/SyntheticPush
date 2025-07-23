@@ -14,9 +14,7 @@ export const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const fetchUser = async () => {
     const response = await fetch("/api/github/user");
-    console.log("This is reaposne", response);
     const data = await response.json();
-    console.log("This is profile data", data);
     let user = {
       id: data?.id,
       name: data?.name,

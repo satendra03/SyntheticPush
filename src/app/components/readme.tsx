@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { marked } from "marked";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Readme = () => {
   const [readme, setReadme] = useState<string>("");
@@ -11,10 +12,8 @@ export const Readme = () => {
 
   const fetchReadme = async () => {
     const response = await fetch(`/api/github/readme`);
-    console.log("This is response", response);
     const data = await response.json();
     const decodedData = atob(data);
-    console.log("This is data", decodedData);
     setReadme(decodedData);
   };
 
@@ -30,12 +29,16 @@ export const Readme = () => {
     }
   }, []);
 
+  if (isLoading) {
+    return <Skeleton className="w-full h-full" />;
+  }
+
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
 
   return (
-    <div className="readme">
+    <div className="readme mb-5 lg:mb-10">
       {isLoading ? (
         <div className="loading">
           <Loader2 className="w-4 h-4 animate-spin" />

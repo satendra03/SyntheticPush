@@ -28,17 +28,22 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 
 const today = new Date();
@@ -116,31 +121,48 @@ const Repo = () => {
     <div className="container py-10 mx-auto flex flex-col justify-center items-center min-h-[70vh]">
       <div className="disclaimer text-center mb-5">
         <h2 className="font-bold">Disclaimer</h2>
-        <HoverCard>
-          <HoverCardTrigger>
+
+        <Drawer>
+          <DrawerTrigger>
             <p className="underline text-muted-foreground cursor-pointer">
               First Read me
             </p>
-          </HoverCardTrigger>
-          <HoverCardContent className="text-center flex flex-col gap-2">
-            <p>⚠️ You are about to make a GitHub push.</p> <br />
-            <p>
-              {" "}
-              This activity will be reflected in your GitHub contribution graph.{" "}
-            </p>
-            <p>
-              {" "}
-              Please note: artificially inflating your activity is morally not
-              correct.
-            </p>{" "}
-            <p>
-              {" "}
-              Proceed only if you are fully aware of what you're doing and
-              accept responsibility.{" "}
-            </p>
-            <Button onClick={() => setKnow(true)}>I know, I'm aware</Button>
-          </HoverCardContent>
-        </HoverCard>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Disclaimer</DrawerTitle>
+              <DrawerDescription>
+                <div>
+                  <p>⚠️ You are about to make a GitHub push.</p> <br />
+                  <p>
+                    {" "}
+                    This activity will be reflected in your GitHub contribution
+                    graph.{" "}
+                  </p>
+                  <p>
+                    {" "}
+                    Please note: artificially inflating your activity is morally
+                    not correct.
+                  </p>{" "}
+                  <p>
+                    {" "}
+                    Proceed only if you are fully aware of what you're doing and
+                    accept responsibility.{" "}
+                  </p>
+                </div>
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerClose className="mb-10">
+              <Button
+                variant="destructive"
+                className="cursor-pointer active:scale-95 transition-all"
+                onClick={() => setKnow(true)}
+              >
+                I know, I'm aware
+              </Button>
+            </DrawerClose>
+          </DrawerContent>
+        </Drawer>
       </div>
 
       <div className="w-full max-w-lg rounded-2xl shadow-xl p-8 border backdrop-blur-md">
@@ -339,7 +361,7 @@ const Repo = () => {
                         type="number"
                         placeholder="2024"
                         {...field}
-                        min={2000}
+                        min={2020}
                         max={today.getFullYear() - 1}
                       />
                     </FormControl>
@@ -349,7 +371,10 @@ const Repo = () => {
               />
             )}
 
-            <Button type="submit" className="w-full text-lg font-semibold">
+            <Button
+              type="submit"
+              className="w-full bg-green-500 hover:bg-green-600 active:scale-95 transition-all cursor-pointer text-lg font-semibold"
+            >
               Submit
             </Button>
           </form>

@@ -1,17 +1,27 @@
 // src/server/services/github.service.ts
 
-export const getRepos = async (accessToken: string, username: string) => {
+export const getRepos = async (
+  accessToken: string,
+  username: string,
+  page: number,
+  perPage: number
+) => {
   const response = await fetch(
-    `https://api.github.com/users/${username}/repos`,
+    `https://api.github.com/users/${username}/repos?per_page=${perPage}&page=${page}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     }
   );
-  const data = await response.json();
-  return data;
+
+  if (!response.ok) {
+    throw new Error("GitHub API failed");
+  }
+
+  return await response.json();
 };
+
 
 export const getUser = async (accessToken: string, username: string) => {
   const response = await fetch(

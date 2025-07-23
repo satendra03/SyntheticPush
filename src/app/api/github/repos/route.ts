@@ -12,6 +12,13 @@ export const GET = async (request: NextRequest) => {
     }
     const accessToken = session.user.accessToken;
     const username = session.user.username;
-  const repos = await getRepos(accessToken, username);
-  return NextResponse.json(repos);
+    const page = parseInt(request.nextUrl.searchParams.get("page") || "1");
+    const perPage = parseInt(request.nextUrl.searchParams.get("per_page") || "15");
+  
+    try {
+      const repos = await getRepos(accessToken, username, page, perPage);
+      return NextResponse.json(repos);
+    } catch (error) {
+      return NextResponse.json({ error: "Failed to fetch repos" }, { status: 500 });
+    }
 };
