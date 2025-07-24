@@ -37,12 +37,12 @@ export const createUser = async (dto: CreateUserDTO): Promise<UserModel> => {
     const userData: UserModel = {
       github: dto.github,
       twitter: dto.twitter || null,
-      credits: 10,
+      credits: 3,
       joinedAt: now,
       history: [
         {
           type: "signup",
-          value: 10,
+          value: 3,
           createdAt: now,
         },
       ],

@@ -12,11 +12,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export const AuthButton = () => {
   const { data: session } = useSession();
   const [credits, setCredits] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(()=>{
     const fetchCredits = async () => {
@@ -29,8 +30,14 @@ export const AuthButton = () => {
 
   if (!session) {
     return (
-      <Button variant="outline" onClick={() => signIn("github")}>
-        Sign up
+      <Button variant="outline" onClick={() => {
+        setIsLoading(true);
+        setTimeout(()=>{
+          signIn("github");
+          setIsLoading(false);
+        }, 2000);
+      }}>
+        {isLoading ? <Loader2 className="animate-spin" /> : "Sign up"}
       </Button>
     );
   }

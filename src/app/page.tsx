@@ -23,6 +23,7 @@ export default function Home() {
   const { data: session } = useSession();
   const [clicked, setClicked] = useState(false);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div className="relative">
       <div className="bg-[url('/main-bg.png')] bg-no-repeat container bg-cover bg-center">
@@ -39,12 +40,20 @@ export default function Home() {
               className="bg-blue-500 text-white dark:bg-blue-600 absolute -top-5 lg:top-0 -right-10 lg:right-0 transform rotate-12"
             >
               <BadgeCheckIcon />
-              Free 10 Credits on Signup
+              Free 3 Credits on Signup
             </Badge>
           </h1>
           <div className="buttons my-10 flex gap-2 items-center justify-center">
             {session ? 
-            <InteractiveHoverButton onClick={() => router.push(`/dashboard/${session.user?.username}`)}>Let&apos;s make it Green</InteractiveHoverButton> 
+            <InteractiveHoverButton onClick={() => {
+              setIsLoading(true);
+              setTimeout(() => {
+                router.push(`/dashboard/${session.user?.username}`);
+                setIsLoading(false);
+              }, 2000);
+            }}>
+              {isLoading ? "Please Wait..." : `Let's make it Green`}
+            </InteractiveHoverButton> 
             : 
             <Button variant="green" onClick={() => router.push("/signup-first")}>Signup using GitHub to use the app</Button>
             }
