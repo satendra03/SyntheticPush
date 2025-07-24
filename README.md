@@ -1,4 +1,4 @@
-<div align="center">
+<div>
 
 # 🚀 SyntheticPush
 
@@ -18,13 +18,4 @@ SyntheticPush lets you generate commit history that looks authentic and natural.
 - 🎲 Randomized activity that looks natural
 
 ---
-
-## 🔧 Building
-
-Currently under development.
-
-## 📦 Version
-
-**v1.0.0**
-
 </div>
