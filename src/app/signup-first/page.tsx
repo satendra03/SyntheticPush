@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 
-export const SignupFirst = () => {
+const SignupFirst = () => {
     return (
         <div className="container mx-auto w-full h-[50vh] flex flex-col items-center justify-center">
             <Image src="/signup.gif" alt="Signup First" width={500} height={500} />
