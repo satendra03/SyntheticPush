@@ -67,7 +67,7 @@ export const createUser = async (dto: CreateUserDTO): Promise<UserModel> => {
 export const createUserIfNotExists = async (dto: CreateUserDTO): Promise<UserModel> => {
   try {
     console.log(`Checking if user exists: ${dto.github.username}`);
-    let existingUser = await findUserByUsername(dto.github.username);
+    const existingUser = await findUserByUsername(dto.github.username);
     
     if (existingUser) {
       console.log(`User already exists: ${dto.github.username}`);

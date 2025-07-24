@@ -15,7 +15,7 @@ export const Profile = () => {
   const fetchUser = async () => {
     const response = await fetch("/api/github/user");
     const data = await response.json();
-    let user = {
+    const user = {
       id: data?.id,
       name: data?.name,
       bio: data?.bio,

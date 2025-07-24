@@ -32,7 +32,7 @@ export const fetchOrCreateUser = async ({
       return null;
     }
 
-    let existingUser = await findUserByUsername(dto.github.username);
+    const existingUser = await findUserByUsername(dto.github.username);
     if (existingUser) {
       console.log("Returning existing user:", existingUser.github.username);
       return existingUser;

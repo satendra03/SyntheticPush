@@ -1,7 +1,6 @@
 // src/app/api/github/push/route.ts
 
 import { NextRequest, NextResponse } from "next/server";
-import { SyntheticPushPayload } from "@/types";
 import { sendSyntheticPush } from "@/server/controllers/github.controller";
 import {
   addPushHistory,

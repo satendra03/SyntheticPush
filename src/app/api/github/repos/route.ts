@@ -19,6 +19,6 @@ export const GET = async (request: NextRequest) => {
       const repos = await getRepos(accessToken, username, page, perPage);
       return NextResponse.json(repos);
     } catch (error) {
-      return NextResponse.json({ error: "Failed to fetch repos" }, { status: 500 });
+      return NextResponse.json({ message: "Failed to fetch repos", error: error }, { status: 500 });
     }
 };

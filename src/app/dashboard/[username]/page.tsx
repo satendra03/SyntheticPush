@@ -1,16 +1,14 @@
 // src/app/dashboard/[username]/page.tsx
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Repositories, Profile, Readme } from "@/app/components";
 
 export const Dashboard = () => {
   const { data: session } = useSession();
   const { username } = useParams();
-  const router = useRouter();
 
   if (!session) {
     return (

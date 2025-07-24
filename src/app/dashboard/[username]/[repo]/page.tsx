@@ -1,7 +1,7 @@
 // src/app/dashboard/[username]/[repo]/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -18,7 +18,6 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
 } from "@/components/ui/form";
 
@@ -42,7 +41,6 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -103,12 +101,25 @@ const Repo = () => {
       const data = await res.json();
       console.log("Push result:", data);
       toast.success(`${data.success ? "Push successful" : "Push failed"}`);
+      
+      setTimeout(()=>{
+        window.location.reload();
+      }, 1000);
+
     } catch (err) {
       setError("Failed to push: " + err);
     } finally {
       setIsLoading(false);
     }
   };
+
+  if(error) {
+    return (
+      <h1 className="text-2xl font-bold text-center">
+        {error}
+      </h1>
+    )
+  }
 
   return (
     <div className="container py-10 mx-auto flex flex-col justify-center items-center min-h-[70vh]">
@@ -128,19 +139,16 @@ const Repo = () => {
                 <div>
                   <p>⚠️ You are about to make a GitHub push.</p> <br />
                   <p>
-                    {" "}
                     This activity will be reflected in your GitHub contribution
-                    graph.{" "}
+                    graph.
                   </p>
                   <p>
-                    {" "}
                     Please note: artificially inflating your activity is morally
                     not correct.
-                  </p>{" "}
+                  </p>
                   <p>
-                    {" "}
-                    Proceed only if you are fully aware of what you're doing and
-                    accept responsibility.{" "}
+                    Proceed only if you are fully aware of what you&apos;re doing and
+                    accept responsibility.
                   </p>
                 </div>
               </DrawerDescription>
@@ -151,7 +159,7 @@ const Repo = () => {
                 className="cursor-pointer active:scale-95 transition-all"
                 onClick={() => setKnow(true)}
               >
-                I know, I'm aware
+                I know, I&apos;m aware
               </Button>
             </DrawerClose>
           </DrawerContent>

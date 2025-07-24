@@ -3,8 +3,9 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
+import { RepoType } from "@/server/dtos/repo.dto";
 
-export const RepoCard = ({ repo }: { repo: any }) => {
+export const RepoCard = ({ repo }: { repo: RepoType }) => {
   return (
     <div className="p-2 grid grid-cols-[90%_1fr]">
       {/* left side */}

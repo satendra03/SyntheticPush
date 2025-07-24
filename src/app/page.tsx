@@ -44,7 +44,7 @@ export default function Home() {
           </h1>
           <div className="buttons my-10 flex gap-2 items-center justify-center">
             {session ? 
-            <InteractiveHoverButton onClick={() => router.push(`/dashboard/${session.user?.username}`)}>Let's make it Green</InteractiveHoverButton> 
+            <InteractiveHoverButton onClick={() => router.push(`/dashboard/${session.user?.username}`)}>Let&apos;s make it Green</InteractiveHoverButton> 
             : 
             <Button variant="green" onClick={() => router.push("/signup-first")}>Signup using GitHub to use the app</Button>
             }

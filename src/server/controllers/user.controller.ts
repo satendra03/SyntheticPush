@@ -1,7 +1,7 @@
 // src/server/controllers/user.controller.ts
 
 import { NextRequest, NextResponse } from "next/server";
-import { createUserIfNotExists, findUserByUsername, updateUserCredits } from "@/server/implementations/user.impl";
+import { createUserIfNotExists, findUserByUsername } from "@/server/implementations/user.impl";
 import { CreateUserDTO } from "@/server/dtos/user.dto";
 import { db } from "../utils/firebase-admin";
 
