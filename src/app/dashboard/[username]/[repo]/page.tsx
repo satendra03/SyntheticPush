@@ -58,7 +58,6 @@ const Repo = () => {
 
   const { username, repo } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [know, setKnow] = useState(false);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -75,7 +74,6 @@ const Repo = () => {
       return;
     }
     setIsLoading(true);
-    setError("");
     try {
       const localDate = values.singleDate;
       let dateToSend = "";
@@ -91,35 +89,36 @@ const Repo = () => {
         authorName: session?.user?.username || "",
         authorEmail: session?.user?.email || "",
       };
-      console.log("THis is payload", payload);
+
       const res = await fetch("/api/github/push", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("API error");
-      const data = await res.json();
-      console.log("Push result:", data);
-      toast.success(`${data.success ? "Push successful" : "Push failed"}`);
+
+      if (!res.ok) {
+        const data = await res.json();
+        if (data.type === "credits") {
+          toast.error("No credits left, please add more credits");
+          return;
+        } else {
+          toast.error("Push failed");
+          return; 
+        }
+      } else {
+        toast.success("Push successful");
+      }
       
       setTimeout(()=>{
         window.location.reload();
       }, 1000);
 
     } catch (err) {
-      setError("Failed to push: " + err);
+      console.error("Failed to push: " + err);
     } finally {
       setIsLoading(false);
     }
   };
-
-  if(error) {
-    return (
-      <h1 className="text-2xl font-bold text-center">
-        {error}
-      </h1>
-    )
-  }
 
   return (
     <div className="container py-10 mx-auto flex flex-col justify-center items-center min-h-[70vh]">

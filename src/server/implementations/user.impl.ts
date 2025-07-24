@@ -12,15 +12,12 @@ export const findUserByUsername = async (
   username: string
 ): Promise<UserModel | null> => {
   try {
-    console.log(`Looking for user with username: ${username}`);
     const ref = db.collection("users").doc(username);
     const doc = await ref.get();
 
     if (doc.exists) {
-      console.log(`Found existing user: ${username}`);
       return doc.data() as UserModel;
     } else {
-      console.log(`User not found: ${username}`);
       return null;
     }
   } catch (error) {
@@ -34,7 +31,6 @@ export const findUserByUsername = async (
  */
 export const createUser = async (dto: CreateUserDTO): Promise<UserModel> => {
   try {
-    console.log(`Creating new user: ${dto.github.username}`);
     const ref = db.collection("users").doc(dto.github.username);
     const now = Timestamp.fromDate(new Date());
 
@@ -53,7 +49,6 @@ export const createUser = async (dto: CreateUserDTO): Promise<UserModel> => {
     };
 
     await ref.set(userData);
-    console.log(`Successfully created user: ${dto.github.username}`);
     return userData;
   } catch (error) {
     console.error(`Error creating user ${dto.github.username}:`, error);
@@ -66,15 +61,12 @@ export const createUser = async (dto: CreateUserDTO): Promise<UserModel> => {
  */
 export const createUserIfNotExists = async (dto: CreateUserDTO): Promise<UserModel> => {
   try {
-    console.log(`Checking if user exists: ${dto.github.username}`);
     const existingUser = await findUserByUsername(dto.github.username);
     
     if (existingUser) {
-      console.log(`User already exists: ${dto.github.username}`);
       return existingUser;
     }
 
-    console.log(`Creating new user: ${dto.github.username}`);
     return await createUser(dto);
   } catch (error) {
     console.error(`Error in createUserIfNotExists for ${dto.github.username}:`, error);

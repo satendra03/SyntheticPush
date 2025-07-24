@@ -21,10 +21,11 @@ export interface Link {
   }
   
   export interface TestimonialType {
-    name: string;
-    image: string;
-    text: string;
-    rating: number;
+    id: string;
+    name?: string;
+    image?: string;
+    text?: string;
+    rating?: number;
   }
   
   export interface History {

@@ -10,7 +10,9 @@ export async function sendSyntheticPush(
   message: string;
 }> {
   try {
-    const res = await fetch("http://localhost:5000/api/github/push", {
+
+
+    const res = await fetch("https://syntheticpush-backend.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +20,9 @@ export async function sendSyntheticPush(
       body: JSON.stringify(payload),
     });
 
+
     const data = await res.json();
+
     return {
       success: res.ok,
       error: null,

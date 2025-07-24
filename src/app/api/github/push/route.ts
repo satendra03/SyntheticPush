@@ -15,27 +15,35 @@ export async function POST(req: NextRequest) {
   // first check the credits
   const credits = await checkCredits(username);
   if (credits.error) {
-    return NextResponse.json({ error: credits.error }, { status: 400 });
+    return NextResponse.json(
+      { error: credits.error, type: "credits" },
+      { status: 400 }
+    );
   }
-  if (credits?.credits && credits.credits <= 0) {
-    return NextResponse.json({ error: "No credits" }, { status: 400 });
+  if (credits?.credits && credits.credits > 0) {
+    // then finnaly do work
+    const result = await sendSyntheticPush(payload);
+
+    if (result.success) {
+      await updateUserCredits(username, (credits?.credits || 0) - 1);
+      // then add the push history
+      await addPushHistory(username);
+
+      return NextResponse.json({ success: true });
+    } else {
+      return NextResponse.json(
+        { error: result.error, type: "push" },
+        { status: 400 }
+      );
+    }
   }
 
-  // then finnaly do work
-  const result = await sendSyntheticPush(payload);
+  return NextResponse.json(
+    { error: "No credits", type: "credits" },
+    { status: 400 }
+  );
+}
 
-  if (result.success) {
-    const updatedCredits = await updateUserCredits(username, (credits?.credits || 0) - 1);
-    if (updatedCredits.error) {
-      return NextResponse.json({ error: updatedCredits.error }, { status: 400 });
-    }
-    // then add the push history
-    const pushHistory = await addPushHistory(username);
-    if (pushHistory.error) {
-      return NextResponse.json({ error: pushHistory.error }, { status: 400 });
-    }
-  } else {
-    return NextResponse.json({ error: result.error }, { status: 400 });
-  }
+export async function GET() {
   return NextResponse.json({ success: true });
 }

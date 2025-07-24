@@ -17,34 +17,15 @@ export const jwtCallback = async ({
   profile?: Profile;
 }): Promise<JWT> => {
   try {
-    console.log("JWT Callback triggered");
-    console.log("User:", user?.name);
-    console.log("Account provider:", account?.provider);
-    console.log("Profile:", profile?.name);
-
-    console.log();
-    console.log("This is complete user", user);
-    console.log("This is complete account", account);
-    console.log("This is complete profile", profile);
-    console.log("This is complete token", token);
-    console.log("--------------------------------");
-    console.log();
-
     if (user && account) {
-      console.log("Processing user and account data");
       const userData = await fetchOrCreateUser({ user, account, profile });
 
       if (userData) {
-        console.log(
-          "User data successfully fetched/created:",
-          userData.github.username
-        );
         token.id = userData.github.id;
         token.username = userData.github.username;
         token.avatarUrl = userData.github.avatarUrl;
         token.credits = userData.credits;
         token.accessToken = account?.access_token || "";
-        console.log("Token updated with user data");
       } else {
         console.error("Failed to fetch or create user data");
       }
