@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Repositories, Profile, Readme } from "@/app/components";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const { data: session } = useSession();
   const { username } = useParams();
 
