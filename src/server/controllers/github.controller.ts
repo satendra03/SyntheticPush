@@ -9,9 +9,8 @@ export async function sendSyntheticPush(
   error: any;
   message: string;
 }> {
-  const url = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
   try {
-    const res = await fetch(url, {
+    const res = await fetch("http://localhost:5000/api/github/push", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
