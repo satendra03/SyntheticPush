@@ -51,7 +51,7 @@ const PrivacyPolicy = () => {
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
                 2. Why We Collect This Data
             </h2>
-            <p className="mb-4">We collect only what's necessary to:</p>
+            <p className="mb-4">We collect only what&apos;s necessary to:</p>
             <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
               <li>Identify and authenticate users (via GitHub)</li>
               <li>Manage credits and commits</li>
@@ -135,7 +135,7 @@ const PrivacyPolicy = () => {
             <p className="mb-4">We use:</p>
             <ul className="list-disc list-inside space-y-2 ml-4">
               <li>
-                <strong>GitHub OAuth</strong> (for login) - subject to GitHub's privacy policy
+                <strong>GitHub OAuth</strong> (for login) - subject to GitHub&apos;s privacy policy
               </li>
               <li>
                 <strong>Firebase</strong> - for secure storage

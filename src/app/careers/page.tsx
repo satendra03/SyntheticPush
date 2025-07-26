@@ -10,17 +10,17 @@ const Careers = () => {
           <section className="mb-8">
             <div className="bg-muted/50 p-6 rounded-lg mb-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                So... you're looking for a career?
+                So... you&apos;re looking for a career?
               </h2>
               <p className="text-lg mb-4">
-                And you're using SyntheticPush to fake GitHub commits?
+                And you&apos;re using SyntheticPush to fake GitHub commits?
               </p>
               <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
                 <h3 className="text-xl font-semibold text-destructive mb-2 flex items-center gap-2">
                   🤨 Bro...
                 </h3>
                 <p>
-                  If you think fake commits will get you a job, let us save your time and your recruiter's.
+                  If you think fake commits will get you a job, let us save your time and your recruiter&apos;s.
                 </p>
               </div>
             </div>
@@ -82,7 +82,7 @@ const Careers = () => {
                   <li>Subset Sum</li>
                   <li>Knapsack</li>
                   <li>LIS, LCS</li>
-                  <li className="text-muted-foreground">(yes, the stuff you've been avoiding)</li>
+                  <li className="text-muted-foreground">(yes, the stuff you&apos;ve been avoiding)</li>
                 </ul>
               </div>
 
@@ -106,7 +106,7 @@ const Careers = () => {
                 🎁 Bonus Tip:
               </h3>
               <p className="text-lg">
-                Fake commits don't pass interviews.<br />
+                Fake commits don&apos;t pass interviews.<br />
                 But confidence + real skills do.
               </p>
             </div>
@@ -117,7 +117,7 @@ const Careers = () => {
               😎 Still Want to Work With Us?
             </h2>
             <div className="bg-muted/50 p-6 rounded-lg">
-              <p className="mb-4">Sure, here's your offer:</p>
+              <p className="mb-4">Sure, here&apos;s your offer:</p>
               <div className="space-y-2">
                 <p><strong>Position:</strong> Timepass Intern</p>
                 <p><strong>Salary:</strong> ₹0/month + 5 free commits/month</p>
@@ -140,7 +140,7 @@ const Careers = () => {
 
           <div className="border-t pt-8 mt-12">
             <p className="text-sm text-muted-foreground text-center">
-              P.S. If you actually want to contribute to open source, we'd love to hear from you at{' '}
+              P.S. If you actually want to contribute to open source, we&apos;d love to hear from you at{' '}
               <a 
                 href="mailto:satendrakumarparteti.work@gmail.com" 
                 className="link"
