@@ -5,24 +5,19 @@ export const footerLinks: FooterLink[] = [
     {
         title: "Product",
         links: [
-            { title: "Features", href: "#features" },
-            { title: "Enterprise", href: "/enterprise" },
+            { title: "Features", href: "/features" },
         ],
     },
     {
         title: "Platform",
         links: [
-            { title: "How It Works", href: "/how-it-works" },
-            { title: "Pricing", href: "#pricing" },
-            { title: "Blog", href: "/blog" },
+            { title: "Pricing", href: "/pricing" },
 
         ],
     },
     {
         title: "Support",
         links: [
-            { title: "Documentation", href: "/docs" },
-            { title: "FAQ", href: "/faq" },
             { title: "Contact Us", href: "/contact" },
         ],
     },
@@ -31,11 +26,9 @@ export const footerLinks: FooterLink[] = [
         links: [
             { title: "About", href: "/about" },
             { title: "Careers", href: "/careers" },
-            { title: "Blog", href: "/blog" },
-            { title: "Press", href: "/press" },
-            { title: "Investors", href: "/investors" },
             { title: "Privacy Policy", href: "/privacy-policy" },
-            { title: "Terms of Service", href: "/terms-of-service" },
+            { title: "Terms of Use", href: "/terms-of-use" },
+            { title: "Refund & Return Policy", href: "/refund-return-policy" },
         ],
     },
 ];
