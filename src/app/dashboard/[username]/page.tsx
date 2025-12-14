@@ -4,12 +4,10 @@
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { Repositories, Profile } from "@/app/components";
-import { useState } from "react";
 
 const Dashboard = () => {
   const { data: session } = useSession();
   const { username } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
 
   if (!session) {
     return (

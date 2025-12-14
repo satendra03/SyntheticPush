@@ -12,8 +12,6 @@ import {
   Building2,
   Users,
   Twitter,
-  Linkedin,
-  Instagram,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
