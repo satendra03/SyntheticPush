@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { BadgeCheckIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -24,6 +24,18 @@ export default function Home() {
   const [clicked, setClicked] = useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = async () => {
+      setIsLoading(true);
+      try {
+        await signIn("github");
+      } catch (error) {
+        console.error("Sign in failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
   return (
     <div className="relative">
       <div className="bg-[url('/main-bg.png')] bg-no-repeat container bg-cover bg-center">
@@ -55,7 +67,9 @@ export default function Home() {
               {isLoading ? "Please Wait..." : `Let's make it Green`}
             </InteractiveHoverButton> 
             : 
-            <Button variant="green" onClick={() => router.push("/signup-first")}>Signup using GitHub to use the app</Button>
+            <Button variant="green" onClick={handleSignIn}>
+              {isLoading ? "Please Wait..." : "Signup using GitHub to use the app"}
+            </Button>
             }
           </div>
         </div>
@@ -67,7 +81,7 @@ export default function Home() {
 
       {/* Trusted by Companies */}
 
-      <Divider />
+      <Divider /> 
 
       {/* Problem */}
       <div id="problem" className="container mx-auto section">

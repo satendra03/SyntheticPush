@@ -7,6 +7,8 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
+    <>
+    <div className="w-full h-1 border-t border-border"></div>
     <footer className="container my-10">
       <div className="flex flex-col lg:flex-row w-full gap-10">
         <div className="flex flex-col w-full gap-2 lg:w-1/3">
@@ -33,5 +35,6 @@ export const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   );
 };

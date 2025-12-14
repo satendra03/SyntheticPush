@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { RepoType } from "@/server/dtos/repo.dto";
 import { mapToRepoType } from "@/server/auth/mappers/repo.mapper";
 
-const PER_PAGE = 15;
+const PER_PAGE = 6;
 
 export const Repositories = () => {
   const { username } = useParams();
@@ -70,7 +70,7 @@ export const Repositories = () => {
           <Link
             href={`/dashboard/${username}/${repo.name}`}
             key={index}
-            className="border rounded-lg p-3 cursor-pointer hover:scale-105 transition-all hover:shadow-xl bg-background"
+            className="border rounded-lg p-3 cursor-pointer hover:scale-105 transition-all hover:shadow-lg bg-background"
           >
             <RepoCard repo={repo} />
           </Link>
@@ -109,6 +109,7 @@ export const Repositories = () => {
                     e.preventDefault();
                     setPage((prev) => prev + 1);
                   }}
+                  className={page === repos.length ? "pointer-events-none opacity-50" : ""}
                 />
               </PaginationItem>
             </>

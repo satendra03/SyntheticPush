@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 
 export const HeroVideo = () => {
   const [isClient, setIsClient] = useState(false);
@@ -13,13 +14,10 @@ export const HeroVideo = () => {
   if (!isClient) return null;
 
   return (
-    <video
-      autoPlay
-      muted
-      loop
-      playsInline
-      src="/hero.mp4"
-      className="rounded-2xl w-full h-full object-cover"
+    <HeroVideoDialog
+      videoSrc="https://www.youtube.com/embed/S_qSo8iG7Pk?si=J9qqn_aH5h7tls3L"
+      thumbnailSrc="https://img.youtube.com/vi/S_qSo8iG7Pk/maxresdefault.jpg"
+      thumbnailAlt="Hero Video"
     />
   );
 };

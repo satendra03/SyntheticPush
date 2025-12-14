@@ -3,16 +3,16 @@
 
 export const BottomFooter = () => {
   return (
-    <div className="flex flex-col items-center justify-center bg-sidebar-accent w-full border-t border-border">
+    <div className="text-xs flex flex-col items-center justify-center bg-sidebar-accent w-full border-t border-border">
 
-      <div className="text-center mb-3">
+      <div className="text-center my-3">
           <p className="text-muted-foreground font-mono">
             Made with ❤️ for developers, by developer.<br />
             Have questions or want to contribute? <a href="/contact" className="link">Contact us</a>.
           </p>
         </div>
         
-      <p className="text-sm text-muted-foreground font-mono">
+      <p className="text-muted-foreground font-mono mb-3">
         &copy; {new Date().getFullYear()} SyntheticPush. All rights reserved.
       </p>
     </div>

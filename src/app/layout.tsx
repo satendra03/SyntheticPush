@@ -11,6 +11,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { SessionWrapper } from "@/app/providers/session-provider";
 import { Toaster } from "@/components/ui/sonner"
 
+import { Toaster as ReactToaster } from 'react-hot-toast';
+
 export const metadata: Metadata = {
   title: "SyntheticPush | Create your own commits on GitHub",
   description: "Create your own commits on GitHub",
@@ -32,6 +34,7 @@ export default function RootLayout({
               <div className="fixed z-50 bottom-10 right-5">
                 <SwitchTheme />
                 <Toaster />
+                <ReactToaster />
               </div>
               <Analytics />
             </main>

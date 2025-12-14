@@ -3,12 +3,13 @@
 
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Repositories, Profile, Readme } from "@/app/components";
+import { Repositories, Profile } from "@/app/components";
+import { useState } from "react";
 
 const Dashboard = () => {
   const { data: session } = useSession();
   const { username } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!session) {
     return (
@@ -27,26 +28,11 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="container mx-auto">
-
-      <Tabs defaultValue="repositories" className="">
-        <TabsList className="w-full mb-5">
-          <TabsTrigger value="overview" className="w-full">Overview</TabsTrigger>
-          <TabsTrigger value="repositories" className="w-full">Repositories</TabsTrigger>
-        </TabsList>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-[30%_1fr] gap-2">
-            <Profile />
-        <TabsContent value="overview">
-          <Readme />
-        </TabsContent>
-        <TabsContent value="repositories" className="w-full">
-          <Repositories />
-        </TabsContent>
-        </div>
-      </Tabs>
-
-     
+    <div className="container mx-auto py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[30%_1fr] gap-6">
+        <Profile />
+        <Repositories />
+      </div>
     </div>
   );
 };
