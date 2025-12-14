@@ -1,63 +1,78 @@
+// src/app/refund-return-policy/page.tsx
+
 import React from "react";
+import { CircleDollarSign, AlertCircle, Mail, HelpCircle } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const RefundReturnPolicy = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="prose prose-gray dark:prose-invert max-w-none">
-          <h1 className="text-3xl font-bold mb-8 text-center">Refund & Return Policy</h1>
-
-          <div className="bg-muted/50 p-4 rounded-lg mb-8">
-            <p className="text-sm text-muted-foreground">
-              <strong>Effective Date:</strong> July 26, 2025
-            </p>
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="container mx-auto px-4 py-16 max-w-3xl">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center p-3 bg-muted rounded-full mb-6">
+            <CircleDollarSign className="w-8 h-8 text-foreground" />
           </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Refund & Return Policy</h1>
+          <p className="text-lg text-muted-foreground">
+            Simple and transparent.
+          </p>
+          <p className="text-sm text-muted-foreground mt-4">
+            Effective Date: Dec 15, 2025
+          </p>
+        </div>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">1. No Refund Policy</h2>
-            <p className="mb-4">
-              SyntheticPush operates on a strict no-refund policy. Once credits are:
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
-              <li>Purchased</li>
-              <li>or, Earned</li>
-            </ul>
-            <p>
-              they cannot be returned, refunded, or exchanged under any circumstance.
-            </p>
-          </section>
+        <div className="space-y-12">
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">2. Digital Service Nature</h2>
-            <p>
-              All services are digital and instantaneous, making refunds technically unfeasible. 
-              You acknowledge this when purchasing or using credits.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">3. Contact</h2>
-            <div className="bg-foreground/10 border border-primary/20 rounded-lg p-4">
-              <p className="font-medium mb-2">For any such queries, contact us at:</p>
-              <a
-                href="mailto:satendrakumarparteti.work@gmail.com"
-                className="link"
-              >
-                satendrakumarparteti.work@gmail.com
-              </a>
+          {/* Section 1: Strict No Refund */}
+          <Section icon={<AlertCircle className="w-5 h-5" />} title="1. Strict No Refund Policy">
+            <div className="bg-destructive/5 border border-destructive/20 rounded-xl p-6">
+              <p className="font-medium text-destructive">
+                Once credits are purchased or earned, they cannot be returned, refunded, or exchanged under any circumstance.
+              </p>
             </div>
-          </section>
+          </Section>
 
-          <div className="border-t pt-8 mt-12">
-            <p className="text-sm text-muted-foreground text-center">
-              This refund policy is effective as of the date listed above and may be updated at any time. 
-              Continued use of the service constitutes acceptance of any changes.
+          {/* Section 2: Why */}
+          <Section icon={<HelpCircle className="w-5 h-5" />} title="2. Why no refunds?">
+            <p>
+              SyntheticPush provides digital, instantaneous services. When you buy credits, they are immediately available for use.
+              Due to the nature of digital goods, we cannot &quot;take back&quot; the credits once they are issued.
+              By purchasing, you acknowledge this policy.
             </p>
+          </Section>
+
+          {/* Contact */}
+          <div className="bg-muted/30 border rounded-2xl p-8 text-center mt-12">
+            <h3 className="text-xl font-bold mb-4">Have an issue with your purchase?</h3>
+            <p className="text-muted-foreground mb-6">
+              If you were charged but didn&apos;t receive credits, please contact us immediately.
+            </p>
+            <Link href="mailto:satendrakumarparteti.work@gmail.com">
+              <Button variant="outline" className="gap-2">
+                <Mail className="w-4 h-4" />
+                Contact Support
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+const Section = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => {
+  return (
+    <section className="bg-background">
+      <h2 className="text-xl font-bold mb-4 flex items-center gap-3 pb-2 border-b">
+        <div className="p-2 bg-muted rounded-md">{icon}</div>
+        {title}
+      </h2>
+      <div className="text-muted-foreground leading-relaxed">
+        {children}
+      </div>
+    </section>
+  )
+}
 
 export default RefundReturnPolicy;

@@ -1,162 +1,106 @@
+// src/app/privacy-policy/page.tsx
+
 import React from "react";
+import { Shield, Lock, Eye, FileText, Mail } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="prose prose-gray dark:prose-invert max-w-none">
-          <h1 className="text-3xl font-bold mb-8 text-center">Privacy Policy</h1>
-          
-          <div className="bg-muted/50 p-4 rounded-lg mb-8">
-            <p className="text-sm text-muted-foreground">
-              <strong>Effective Date:</strong> July 26, 2025<br />
-              <strong>Last Updated:</strong> July 26, 2025
-            </p>
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="container mx-auto px-4 py-16 max-w-3xl">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center p-3 bg-muted rounded-full mb-6">
+            <Shield className="w-8 h-8 text-foreground" />
           </div>
-
-          <p className="text-lg mb-6">
-            At SyntheticPush, we value your privacy and are committed to protecting your data. 
-            This Privacy Policy describes what we collect, why, and how we handle it responsibly.
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Privacy Policy</h1>
+          <p className="text-lg text-muted-foreground">
+            We value your trust. Here is exactly what we do with your data.
           </p>
+          <p className="text-sm text-muted-foreground mt-4">
+            Last Updated: Dec 15, 2025
+          </p>
+        </div>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-              1. What We Collect
-            </h2>
+        <div className="space-y-12">
+          {/* Section 1: What We Collect */}
+          <Section icon={<Eye className="w-5 h-5 " />} title="1. What We Collect">
             <p className="mb-4">We collect minimal data needed to provide our service:</p>
-            
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-medium mb-2">a. User Identity (GitHub OAuth)</h3>
-                <ul className="list-disc list-inside space-y-1 ml-4">
-                  <li>id (GitHub user ID)</li>
-                  <li>username</li>
-                  <li>avatarUrl</li>
-                  <li>profileUrl</li>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-card border p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <h3 className="font-semibold mb-2 text-foreground">User Identity</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground text-sm">
+                  <li>GitHub User ID</li>
+                  <li>Username</li>
+                  <li>Avatar URL</li>
+                  <li>Profile URL</li>
                 </ul>
               </div>
-              
-              <div>
-                <h3 className="text-lg font-medium mb-2">b. User Activity</h3>
-                <ul className="list-disc list-inside space-y-1 ml-4">
-                  <li>credits (number of credits available)</li>
-                  <li>history array (actions like signup, push with type, value, and timestamp)</li>
-                  <li>joinedAt (account creation time)</li>
+              <div className="bg-card border p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <h3 className="font-semibold mb-2 text-foreground">User Activity</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground text-sm">
+                  <li>Available Credits</li>
+                  <li>Commit History (Type, Value, Timestamp)</li>
+                  <li>Account Creation Date</li>
                 </ul>
               </div>
             </div>
-          </section>
+          </Section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                2. Why We Collect This Data
-            </h2>
+          {/* Section 2: Why We Collect */}
+          <Section icon={<FileText className="w-5 h-5" />} title="2. Why We Collect Data">
             <p className="mb-4">We collect only what&apos;s necessary to:</p>
-            <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
-              <li>Identify and authenticate users (via GitHub)</li>
-              <li>Manage credits and commits</li>
-              <li>Display usage history</li>
-              <li>Prevent abuse and fraud</li>
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-2 mb-6">
+              <li>Authenticate you via GitHub.</li>
+              <li>Manage your credits and commit streaks.</li>
+              <li>Display your usage history.</li>
+              <li>Prevent abuse and fraud.</li>
             </ul>
-            
-            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
-              <h4 className="font-semibold text-destructive mb-2">We do NOT:</h4>
-              <ul className="list-disc list-inside space-y-1 ml-4 text-sm">
+            <div className="bg-destructive/5 border-l-4 border-destructive p-4 rounded-r-lg">
+              <h4 className="font-bold text-destructive mb-2">What we DO NOT do:</h4>
+              <ul className="list-disc list-inside space-y-1 text-foreground/80">
                 <li>Sell your data</li>
                 <li>Show ads</li>
-                <li>Track you across sites</li>
-                <li>Use data for profiling or marketing</li>
+                <li>Track you across other sites</li>
               </ul>
             </div>
-          </section>
+          </Section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-              3. Data Protection
-            </h2>
-            <p className="mb-4">We use industry-standard measures to protect your data:</p>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li>Firestore Security Rules</li>
-              <li>Data transmission over HTTPS</li>
-            </ul>
-          </section>
-
-          {/* <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-              4. Legal Compliance
-            </h2>
-            <p className="mb-4">We comply with:</p>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li>Information Technology Act, 2000 (India)</li>
-              <li>IT (Reasonable Security Practices & Sensitive Personal Data) Rules, 2011</li>
-              <li>General Data Protection Regulation (GDPR) (EU)</li>
-              <li>California Consumer Privacy Act (CCPA) (US)</li>
-            </ul>
-          </section> */}
-
-          {/* <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-              5. Children's Privacy
-            </h2>
-            <p>
-              SyntheticPush is not intended for users under the age of 13. 
-              We do not knowingly collect data from children.
-            </p>
-          </section> */}
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-              4. Your Rights
-            </h2>
+          {/* Section 3: Data Protection */}
+          <Section icon={<Lock className="w-5 h-5" />} title="3. Data Protection">
             <p className="mb-4">
-              Depending on your jurisdiction, you have the right to:
+              We use industry-standard measures to protect your data, including Firestore Security Rules and HTTPS encryption for all data transmission.
             </p>
-            <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
-              <li>Access or export your data</li>
-              <li>Request deletion of your account and data</li>
-              <li>Ask how your data is stored or used</li>
-            </ul>
-            
-            <div className="bg-foreground/10 border border-primary/20 rounded-lg p-4">
-              <p className="font-medium mb-2">Contact us anytime:</p>
-              <a 
-                href="mailto:satendrakumarparteti.work@gmail.com" 
-                className="link"
-              >
-                satendrakumarparteti.work@gmail.com
-              </a>
-            </div>
-          </section>
+          </Section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                5. Third-Party Services
-            </h2>
-            <p className="mb-4">We use:</p>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li>
-                <strong>GitHub OAuth</strong> (for login) - subject to GitHub&apos;s privacy policy
-              </li>
-              <li>
-                <strong>Firebase</strong> - for secure storage
-              </li>
-            </ul>
-            <p className="mt-4 text-sm text-muted-foreground">
-              You are advised to review their privacy policies as well.
-            </p>
-          </section>
-
-          <div className="border-t pt-8 mt-12">
-            <p className="text-sm text-muted-foreground text-center">
-              This privacy policy is effective as of the date listed above and will remain in effect 
-              except with respect to any changes in its provisions in the future, which will be in 
-              effect immediately after being posted on this page.
-            </p>
+          {/* Contact */}
+          <div className="bg-muted/30 border rounded-2xl p-8 text-center">
+            <h3 className="text-xl font-bold mb-4">Have questions about your data?</h3>
+            <Link href="mailto:satendrakumarparteti.work@gmail.com">
+              <Button variant="outline" className="gap-2">
+                <Mail className="w-4 h-4" />
+                Contact Privacy Team
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+const Section = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => {
+  return (
+    <section className="bg-background">
+      <h2 className="text-xl font-bold mb-4 flex items-center gap-3 pb-2 border-b">
+        <div className="p-2 bg-muted rounded-md">{icon}</div>
+        {title}
+      </h2>
+      <div className="text-muted-foreground leading-relaxed">
+        {children}
+      </div>
+    </section>
+  )
+}
 
 export default PrivacyPolicy;

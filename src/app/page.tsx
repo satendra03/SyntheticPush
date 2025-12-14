@@ -74,8 +74,8 @@ export default function Home() {
           </div>
         </div>
         {/* Video */}
-        <div className="video p-2 mb-10 lg:p-4 bg-foreground/20 rounded-2xl overflow-hidden">
-          <HeroVideo />
+        <div className="video p-2 mb-10 lg:p-4 bg-foreground/20 rounded-2xl">
+            <HeroVideo />
         </div>
       </div>
 
