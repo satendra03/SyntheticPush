@@ -10,9 +10,11 @@ export async function sendSyntheticPush(
   message: string;
 }> {
   try {
+    const BACKEND_URL =
+      process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+      console.log("BACKEND_URL:", BACKEND_URL);
 
-
-    const res = await fetch("https://syntheticpush-backend.onrender.com", {
+    const res = await fetch(`${BACKEND_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

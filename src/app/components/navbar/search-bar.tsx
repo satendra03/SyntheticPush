@@ -15,8 +15,10 @@ export const SearchBar = ({
   const [search, setSearch] = useState("");
 
   const handleSearch = () => {
-    // TODO: Implement search logic
-    alert("Searched for: " + search);
+    if (search.trim()) {
+      setSearch("");
+      window.open(`https://github.com/${search}`, "_blank");
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

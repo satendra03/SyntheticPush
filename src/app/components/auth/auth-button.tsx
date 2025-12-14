@@ -19,24 +19,51 @@ export const AuthButton = () => {
   const [credits, setCredits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchCredits = async () => {
-      const res = await fetch("/api/firebase/credits");
-      const data = await res.json();
-      setCredits(data.credits);
+      if (session) {
+        try {
+          const res = await fetch("/api/firebase/credits");
+          if (res.ok) {
+            const data = await res.json();
+            setCredits(data.credits);
+          }
+        } catch (error) {
+          console.error("Failed to fetch credits:", error);
+        }
+      }
     };
     fetchCredits();
-  }, [])
+  }, [session]);
+
+  const handleSignIn = async () => {
+    setIsLoading(true);
+    try {
+      await signIn("github");
+    } catch (error) {
+      console.error("Sign in failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    setIsLoading(true);
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Sign out failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   if (!session) {
     return (
-      <Button variant="outline" onClick={() => {
-        setIsLoading(true);
-        setTimeout(()=>{
-          signIn("github");
-          setIsLoading(false);
-        }, 2000);
-      }}>
+      <Button
+        variant="outline"
+        onClick={handleSignIn}
+      >
         {isLoading ? <Loader2 className="animate-spin" /> : "Sign up"}
       </Button>
     );
@@ -71,9 +98,9 @@ export const AuthButton = () => {
           <Button
             variant="outline"
             className="outline-none cursor-pointer"
-            onClick={() => { signOut() }}
+            onClick={handleSignOut}
           >
-            Sign out
+            {isLoading ? <Loader2 className="animate-spin" /> : "Sign out"}
           </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>

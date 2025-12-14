@@ -82,18 +82,39 @@ export interface Link {
       ),
   })
   // Validate required fields per mode
-  .refine(
-    (data) => {
-      if (data.mode === "single") return !!data.singleDate;
-      if (data.mode === "range") return !!data.startDate && !!data.endDate;
-      if (data.mode === "year") return !!data.year;
-      return false;
-    },
-    {
-      message: "Please fill all required fields for the selected mode.",
-      path: ["mode"],
+  // Validate required fields per mode
+  .superRefine((data, ctx) => {
+    if (data.mode === "single" && !data.singleDate) {
+      ctx.addIssue({
+        // code: z.ZodIssueCode.custom,
+        message: "Please select a date.",
+        path: ["singleDate"],
+      });
     }
-  )
+    if (data.mode === "range") {
+      if (!data.startDate) {
+        ctx.addIssue({
+          // code: z.ZodIssueCode.custom,
+          message: "Please select a start date.",
+          path: ["startDate"],
+        });
+      }
+      if (!data.endDate) {
+        ctx.addIssue({
+          // code: z.ZodIssueCode.custom,
+          message: "Please select an end date.",
+          path: ["endDate"],
+        });
+      }
+    }
+    if (data.mode === "year" && !data.year) {
+      ctx.addIssue({
+        // code: z.ZodIssueCode.custom,
+        message: "Please enter a year.",
+        path: ["year"],
+      });
+    }
+  })
   // Ensure endDate > startDate for range mode
   .refine(
     (data) => {
