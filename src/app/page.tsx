@@ -26,23 +26,42 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
-      setIsLoading(true);
-      try {
-        await signIn("github");
-      } catch (error) {
-        console.error("Sign in failed:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    setIsLoading(true);
+    try {
+      await signIn("github");
+    } catch (error) {
+      console.error("Sign in failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "SyntheticPush",
+            applicationCategory: "DeveloperApplication",
+            operatingSystem: "Web",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            description:
+              "Simulate GitHub commit activity graph effortlessly with SyntheticPush.",
+          }),
+        }}
+      />
       <div className="bg-[url('/main-bg.png')] bg-no-repeat container bg-cover bg-center">
         {/* Main content */}
         <div id="home" className="main-content w-[80%] lg:w-full pt-20 lg:pt-20 mx-auto text-center">
           <h1 className="bold-heading relative text-black dark:text-white">
-            Craft your GitHub contribution graph effortlessly with{" "}
+            Simulate GitHub commit activity graph effortlessly with{" "}
             <span className="text-black/50 dark:text-white/50">
               SyntheticPush
             </span>
@@ -56,32 +75,32 @@ export default function Home() {
             </Badge>
           </h1>
           <div className="buttons my-10 flex gap-2 items-center justify-center">
-            {session ? 
-            <InteractiveHoverButton onClick={() => {
-              setIsLoading(true);
-              setTimeout(() => {
-                router.push(`/dashboard/${session.user?.username}`);
-                setIsLoading(false);
-              }, 2000);
-            }}>
-              {isLoading ? "Please Wait..." : `Let's make it Green`}
-            </InteractiveHoverButton> 
-            : 
-            <Button variant="green" onClick={handleSignIn}>
-              {isLoading ? "Please Wait..." : "Signup using GitHub to use the app"}
-            </Button>
+            {session ?
+              <InteractiveHoverButton onClick={() => {
+                setIsLoading(true);
+                setTimeout(() => {
+                  router.push(`/dashboard/${session.user?.username}`);
+                  setIsLoading(false);
+                }, 2000);
+              }}>
+                {isLoading ? "Please Wait..." : `Let's make it Green`}
+              </InteractiveHoverButton>
+              :
+              <Button variant="green" onClick={handleSignIn}>
+                {isLoading ? "Please Wait..." : "Signup using GitHub to use the app"}
+              </Button>
             }
           </div>
         </div>
         {/* Video */}
         <div className="video p-2 mb-10 lg:p-4 bg-foreground/20 rounded-2xl">
-            <HeroVideo />
+          <HeroVideo />
         </div>
       </div>
 
       {/* Trusted by Companies */}
 
-      <Divider /> 
+      <Divider />
 
       {/* Problem */}
       <div id="problem" className="container mx-auto section">

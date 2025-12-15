@@ -12,6 +12,12 @@ import {
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Learn more about SyntheticPush, our mission, and how we help developers manage their GitHub contribution history.",
+};
 
 const About = () => {
   return (
