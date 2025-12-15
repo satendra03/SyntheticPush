@@ -23,7 +23,7 @@ export const Navbar = () => {
   }, [mobileOpen]);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-background border-b border-border">
+    <nav className="fixed top-0 left-0 w-full z-60 bg-background border-b border-border">
       <div className="container">
         <div className="flex h-16 items-center justify-between">
           {/* Mobile menu button */}
