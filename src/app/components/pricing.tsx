@@ -29,7 +29,7 @@ export const Pricing = () => {
             </p>
             <ul className="list-disc list-inside text-gray-50 relative my-4"> 
               <li className="text-gray-50 relative my-4">
-                Just Signup and get 10 Credits
+                Just Signup and get 3 Credits
               </li>
               <li className="text-gray-50 relative my-4">
                 Tweet About Us get more!
