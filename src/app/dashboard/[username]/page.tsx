@@ -1,15 +1,23 @@
 // src/app/dashboard/[username]/page.tsx
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/hooks/useAuth";
 import { useParams } from "next/navigation";
 import { Repositories, Profile } from "@/app/components";
 
 const Dashboard = () => {
-  const { data: session } = useSession();
+  const { session, isAuthenticated, isLoading } = useAuth();
   const { username } = useParams();
 
-  if (!session) {
+  if (isLoading) {
+    return (
+      <div className="container mx-auto text-center text-2xl font-bold h-[50vh] flex items-center justify-center">
+        <div className="border-2 border-foreground rounded-full border-t-transparent animate-spin w-14 h-14  mx-auto"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
     return (
       <div className="container mx-auto text-center text-2xl font-bold h-[50vh] flex items-center justify-center">
         <div className="border-2 border-foreground rounded-full border-t-transparent animate-spin w-14 h-14  mx-auto"></div>

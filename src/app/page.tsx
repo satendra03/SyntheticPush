@@ -16,24 +16,17 @@ import { Badge } from "@/components/ui/badge";
 import { BadgeCheckIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { data: session } = useSession();
+  const { session, login, isLoading: authLoading } = useAuth();
   const [clicked, setClicked] = useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
-    setIsLoading(true);
-    try {
-      await signIn("github");
-    } catch (error) {
-      console.error("Sign in failed:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    await login("github");
   };
 
   return (
@@ -87,7 +80,7 @@ export default function Home() {
               </InteractiveHoverButton>
               :
               <Button variant="green" onClick={handleSignIn}>
-                {isLoading ? "Please Wait..." : "Signup using GitHub to use the app"}
+                {authLoading ? "Please Wait..." : "Signup using GitHub to use the app"}
               </Button>
             }
           </div>

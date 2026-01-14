@@ -11,7 +11,7 @@ export async function sendSyntheticPush(
 }> {
   try {
     const BACKEND_URL =
-      process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+      process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api/push";
       console.log("BACKEND_URL:", BACKEND_URL);
 
     const res = await fetch(`${BACKEND_URL}`, {
