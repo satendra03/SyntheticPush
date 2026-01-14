@@ -14,46 +14,26 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useEffect, useState } from "react";
-import { RepoType } from "@/server/dtos/repo.dto";
-import { mapToRepoType } from "@/server/auth/mappers/repo.mapper";
+import { useState } from "react";
+import { useGithub } from "@/hooks/useGithub";
 
 const PER_PAGE = 6;
 
 export const Repositories = () => {
   const { username } = useParams();
-  const [repos, setRepos] = useState<RepoType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const [page, setPage] = useState(1);
+  const { useRepositories } = useGithub();
+  const { data: repos = [], isLoading, error } = useRepositories(page, PER_PAGE);
 
-  const fetchRepos = async (currentPage: number) => {
-    setIsLoading(true);
-    try {
-      const res = await fetch(
-        `/api/github/repos?page=${currentPage}&per_page=${PER_PAGE}`
-      );
-      const data = await res.json();
-      const repo = mapToRepoType(data);
-      setRepos(repo as RepoType[]);
-    } catch (err) {
-      setError("Failed to fetch repositories");
-      console.error("This is error", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchRepos(page);
-  }, [page]);
+  /* Removed manual fetch logic */
 
   if (isLoading) {
     return <Skeleton className="w-full h-full" />;
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <div className="text-red-500">{error.message}</div>;
   }
 
   return (

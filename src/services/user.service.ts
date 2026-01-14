@@ -1,4 +1,4 @@
-import { ApiService } from "./api.service";
+import apiClient from "@/lib/axios";
 
 export interface UserCreditsResponse {
     credits: number;
@@ -6,7 +6,7 @@ export interface UserCreditsResponse {
 
 export const UserService = {
     getCredits: async (): Promise<number> => {
-        const data = await ApiService.get<UserCreditsResponse>("/api/firebase/credits");
+        const { data } = await apiClient.get<UserCreditsResponse>("/api/firebase/credits");
         return data.credits;
     },
 };

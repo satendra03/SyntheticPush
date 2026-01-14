@@ -37,7 +37,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/hooks/useAuth";
+import { useGithub } from "@/hooks/useGithub";
 
 const today = new Date();
 const earliestDate = new Date("2020-01-01");
@@ -45,10 +46,11 @@ const earliestDate = new Date("2020-01-01");
 type FormSchema = z.infer<typeof formSchema>;
 
 const Repo = () => {
-  const { data: session } = useSession();
+  const { session } = useAuth();
+  const { usePushCommits } = useGithub();
+  const { mutate: pushCommits, isPending: isPushing } = usePushCommits();
 
   const { username, repo } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
   const [know, setKnow] = useState(false);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -64,50 +66,52 @@ const Repo = () => {
       toast.error("Please read the disclaimer first");
       return;
     }
-    setIsLoading(true);
-    try {
-      const localDate = values.singleDate;
-      let dateToSend = "";
-      if (localDate) {
-        localDate.setHours(12, 0, 0, 0);
-        dateToSend = localDate.toISOString();
-      }
 
-      const payload: SyntheticPushPayload = {
-        date: dateToSend || "",
-        repo: `${username}/${repo}`,
-        accessToken: session?.user?.accessToken || "",
-        authorName: session?.user?.username || "",
-        authorEmail: session?.user?.email || "",
-      };
-
-      const res = await fetch("/api/github/push", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        if (data.type === "credits") {
-          toast.error("No credits left, please add more credits");
-          return;
-        } else {
-          toast.error("Push failed");
-          return;
-        }
-      } else {
-        toast.success("Push successful");
-      }
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    } catch (err) {
-      console.error("Failed to push: " + err);
-    } finally {
-      setIsLoading(false);
+    const localDate = values.singleDate;
+    let dateToSend = "";
+    if (localDate) {
+      localDate.setHours(12, 0, 0, 0);
+      dateToSend = localDate.toISOString();
     }
+
+    // const payload: SyntheticPushPayload = {
+    //   date: dateToSend || "",
+    //   repo: `${username}/${repo}`,
+    //   accessToken: session?.accessToken || "", // Adjusted to match typical session structure, verified below
+    //   authorName: session?.username || "",
+    //   authorEmail: session?.email || "",
+    // };
+
+    // Note: session user properties (accessToken, username) might be nested under session.user
+    // Re-checking session structure from auth usage in other files.
+    // In auth-button it used session.user.username.
+    // Let's correct this.
+
+    const correctedPayload: SyntheticPushPayload = {
+      date: dateToSend || "",
+      repo: `${username}/${repo}`,
+      accessToken: session?.user?.accessToken || "",
+      authorName: session?.user?.username || "",
+      authorEmail: session?.user?.email || "",
+    };
+
+    pushCommits(correctedPayload, {
+      onSuccess: (data) => {
+        toast.success(data.message || "Push successful");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      },
+      onError: (error: any) => {
+        // Axios error structure
+        const msg = error.message;
+        if (msg.includes("credits")) {
+          toast.error("No credits left, please add more credits");
+        } else {
+          toast.error(msg || "Push failed");
+        }
+      }
+    });
   };
 
   return (
@@ -356,7 +360,7 @@ const Repo = () => {
                 type="submit"
                 className={`w-full bg-green-500 hover:bg-green-600 active:scale-95 transition-all cursor-pointer text-lg font-semibold ${know ? "" : "opacity-50"}`}
               >
-                {isLoading ? <Loader2 className="animate-spin" /> : "Submit"}
+                {isPushing ? <Loader2 className="animate-spin" /> : "Submit"}
               </Button>
             </form>
           </Form>

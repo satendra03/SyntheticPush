@@ -9,6 +9,7 @@ import {
 } from "@/app/components";
 import { Analytics } from "@vercel/analytics/next";
 import { SessionWrapper } from "@/app/providers/session-provider";
+import QueryProvider from "@/app/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
@@ -86,19 +87,21 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen w-full">
         <SessionWrapper>
-          <ThemeProvider>
-            <Navbar />
-            <main className="flex-1 pt-20 min-w-sm relative">
-              <div>{children}</div>
-              <div className="fixed z-50 bottom-10 right-5">
-                <SwitchTheme />
-                <Toaster />
-              </div>
-              <Analytics />
-            </main>
-            <Footer />
-            <BottomFooter />
-          </ThemeProvider>
+          <QueryProvider>
+            <ThemeProvider>
+              <Navbar />
+              <main className="flex-1 pt-20 min-w-sm relative">
+                <div>{children}</div>
+                <div className="fixed z-50 bottom-10 right-5">
+                  <SwitchTheme />
+                  <Toaster />
+                </div>
+                <Analytics />
+              </main>
+              <Footer />
+              <BottomFooter />
+            </ThemeProvider>
+          </QueryProvider>
         </SessionWrapper>
       </body>
     </html>
