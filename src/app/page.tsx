@@ -155,7 +155,7 @@ export default function Home() {
 
       {/* Testimonials */}
       <div id="testimonials" className="container mx-auto section flex flex-col items-center">
-        <h1 className="heading text-center relative border w-fit self-center">Testimonials
+        <h1 className="heading text-center relative w-fit self-center">Testimonials
           <Badge
             variant="secondary"
             className="bg-green-500 text-white dark:bg-green-600 absolute -top-2 -right-6 transform rotate-45"
