@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Home() {
   const { session, login, isLoading: authLoading } = useAuth();
@@ -50,7 +51,14 @@ export default function Home() {
           }),
         }}
       />
-      <div className="bg-[url('/main-bg.png')] bg-no-repeat container bg-cover bg-center">
+      <div className="relative container">
+        <Image
+          src="/main-bg.png"
+          alt="Hero Background"
+          fill
+          priority
+          className="object-cover -z-10"
+        />
         {/* Main content */}
         <div id="home" className="main-content w-[80%] lg:w-full pt-20 lg:pt-20 mx-auto text-center">
           <h1 className="bold-heading relative text-black dark:text-white">
@@ -146,8 +154,16 @@ export default function Home() {
       <Divider />
 
       {/* Testimonials */}
-      <div id="testimonials" className="container mx-auto section">
-        <h1 className="heading text-center">Testimonials</h1>
+      <div id="testimonials" className="container mx-auto section flex flex-col items-center">
+        <h1 className="heading text-center relative border w-fit self-center">Testimonials
+          <Badge
+            variant="secondary"
+            className="bg-green-500 text-white dark:bg-green-600 absolute -top-2 -right-6 transform rotate-45"
+          >
+            <BadgeCheckIcon />
+            Soon
+          </Badge>
+        </h1>
         <p className="text-center caption">
           We could hype ourselves up — but we&rsquo;ll let the{" "}
           <span className="text-green-400">devs</span> do it instead.

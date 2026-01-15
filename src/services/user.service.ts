@@ -1,12 +1,7 @@
-import apiClient from "@/lib/axios";
-
-export interface UserCreditsResponse {
-    credits: number;
-}
-
 export const UserService = {
     getCredits: async (): Promise<number> => {
-        const { data } = await apiClient.get<UserCreditsResponse>("/api/firebase/credits");
+        const response = await fetch("/api/firebase/credits");
+        const data = await response.json();
         return data.credits;
     },
 };

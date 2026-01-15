@@ -21,7 +21,6 @@ const PER_PAGE = 6;
 
 export const Repositories = () => {
   const { username } = useParams();
-  /* eslint-disable @typescript-eslint/no-unused-vars */
   const [page, setPage] = useState(1);
   const { useRepositories } = useGithub();
   const { data: repos = [], isLoading, error } = useRepositories(page, PER_PAGE);

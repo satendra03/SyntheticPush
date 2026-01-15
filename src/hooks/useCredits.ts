@@ -6,9 +6,9 @@ export const useCredits = () => {
     const { data: session } = useSession();
 
     const { data: credits = 0, isLoading: loading } = useQuery({
-        queryKey: ["credits", session?.user?.email],
+        queryKey: ["credits", session?.user?.username],
         queryFn: UserService.getCredits,
-        enabled: !!session?.user?.email,
+        enabled: !!session?.user?.username,
         staleTime: 60 * 1000,
     });
 
