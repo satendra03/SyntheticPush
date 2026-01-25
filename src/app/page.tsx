@@ -36,6 +36,14 @@ export default function Home() {
     }
   };
 
+  const handleDashboardNavigation = async () => {
+    setIsLoading(true);
+    if (session?.user?.username) {
+      await router.push(`/dashboard/${session.user.username}`);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <div className="relative">
       <script
@@ -76,13 +84,7 @@ export default function Home() {
           </h1>
           <div className="buttons my-10 flex gap-2 items-center justify-center">
             {session ?
-              <InteractiveHoverButton onClick={() => {
-                setIsLoading(true);
-                setTimeout(() => {
-                  router.push(`/dashboard/${session.user?.username}`);
-                  setIsLoading(false);
-                }, 2000);
-              }}>
+              <InteractiveHoverButton onClick={handleDashboardNavigation}>
                 {isLoading ? "Please Wait..." : `Let's make it Green`}
               </InteractiveHoverButton>
               :

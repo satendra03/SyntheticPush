@@ -12,6 +12,11 @@ export const findUserByUsername = async (
   username: string
 ): Promise<UserModel | null> => {
   try {
+    // Validate username is provided and not empty
+    if (!username || typeof username !== "string" || username.trim() === "") {
+      throw new Error("Username must be a non-empty string");
+    }
+
     const ref = db.collection("users").doc(username);
     const doc = await ref.get();
 

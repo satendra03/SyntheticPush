@@ -9,19 +9,39 @@ import {
 import { updateUserCredits } from "@/server/implementations/user.impl";
 
 export async function POST(req: NextRequest) {
-  const payload = await req.json();
-  const username = payload.authorName;
+  try {
+    const payload = await req.json();
+    const username = payload.authorName;
 
-  // first check the credits
-  const credits = await checkCredits(username);
-  if (credits.error) {
-    return NextResponse.json(
-      { error: credits.error, type: "credits" },
-      { status: 400 }
-    );
-  }
-  if (credits?.credits && credits.credits > 0) {
-    // then finnaly do work
+    // Validate username exists and is not empty
+    if (!username || typeof username !== "string" || username.trim() === "") {
+      console.error("Invalid or missing authorName in payload:", payload.authorName);
+      return NextResponse.json(
+        { error: "Invalid or missing authorName in payload" },
+        { status: 400 }
+      );
+    }
+
+    // first check the credits
+    const credits = await checkCredits(username);
+    
+    if (credits.error) {
+      console.log("Credit check failed:", credits.error);
+      return NextResponse.json(
+        { error: credits.error, type: "credits" },
+        { status: 400 }
+      );
+    }
+    
+    if (!credits?.credits || credits.credits <= 0) {
+      console.log("User has no credits:", credits.credits);
+      return NextResponse.json(
+        { error: "Insufficient credits", type: "credits" },
+        { status: 400 }
+      );
+    }
+    
+    // then finally do work
     const result = await sendSyntheticPush(payload);
 
     if (result.success) {
@@ -31,17 +51,19 @@ export async function POST(req: NextRequest) {
 
       return NextResponse.json({ success: true });
     } else {
+      console.log("Push failed:", result.error);
       return NextResponse.json(
         { error: result.error, type: "push" },
         { status: 400 }
       );
     }
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json(
+      { error: "Internal server error", details: String(error) },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json(
-    { error: "No credits", type: "credits" },
-    { status: 400 }
-  );
 }
 
 export async function GET() {

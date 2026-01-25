@@ -73,6 +73,13 @@ const Repo = () => {
         dateToSend = localDate.toISOString();
       }
 
+      // Validate session has required data
+      if (!session?.user?.username) {
+        console.error("Session missing username. Full session:", session);
+        toast.error("User session invalid. Please log in again.");
+        return;
+      }
+
       const payload: SyntheticPushPayload = {
         date: dateToSend || "",
         repo: `${username}/${repo}`,
@@ -86,23 +93,20 @@ const Repo = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      const data = await res.json();
 
       if (!res.ok) {
-        const data = await res.json();
         if (data.type === "credits") {
           toast.error("No credits left, please add more credits");
           return;
         } else {
-          toast.error("Push failed");
+          toast.error(data.error || "Push failed");
           return;
         }
       } else {
         toast.success("Push successful");
+        form.reset();
       }
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (err) {
       console.error("Failed to push: " + err);
     } finally {
