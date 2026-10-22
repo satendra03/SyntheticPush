@@ -14,12 +14,8 @@ import {
   Sparkles,
   Flame,
   Zap,
-  Heart,
-  Waves,
-  Layers,
   ArrowRight,
   ArrowLeft,
-  ChevronLeft,
   CheckCircle2,
   AlertTriangle,
   RotateCcw,
@@ -28,25 +24,18 @@ import {
   ShieldCheck,
   ShieldAlert,
   Info,
-  ChevronRight,
-  ExternalLink,
   Coins,
   Paintbrush,
   Eraser,
   Grid,
   Clock,
-  Terminal as TerminalIcon,
-  Check,
   X,
   Lock,
-  Unlock,
   ArrowUpRight,
-  AlertCircle,
-  Type,
-  Bot,
-  Star,
   FolderGit2,
   GitBranch,
+  ExternalLink,
+  Unlock,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -414,10 +403,10 @@ export default function RepoDispatchPage() {
     }
 
     return grid;
-  }, [mode, targetYear, singleDate, startDate, endDate, pattern, shade, seedOffset, customGrid]);
+  }, [mode, singleDate, startDate, endDate, pattern, shade, seedOffset, customGrid]);
 
   // Compute stats from activeGrid
-  const { totalCommits, activeDays, maxStreak, requiredCredits } = useMemo(() => {
+  const { totalCommits, activeDays, requiredCredits } = useMemo(() => {
     let commits = 0;
     let active = 0;
     let curStreak = 0;
@@ -442,12 +431,10 @@ export default function RepoDispatchPage() {
     return {
       totalCommits: commits,
       activeDays: active,
-      maxStreak: maxS,
       requiredCredits: cost,
     };
-  }, [activeGrid, mode]);
+  }, [activeGrid]);
 
-  const hasSufficientCredits = credits !== null && credits >= requiredCredits;
   const balanceAfter = credits !== null ? credits - requiredCredits : null;
 
   // Trigger guidance when user tries to dispatch without accepting protocol

@@ -39,7 +39,7 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token, req }) => {
+      authorized: ({ token }) => {
         // Enforce that a valid token must exist with an active accessToken and username
         return !!token && !!token.accessToken && !!token.username;
       },
