@@ -10,7 +10,7 @@ export const NavLinksDesktop = () => {
   const pathname = usePathname();
 
   return (
-    <>
+    <div className="flex items-center space-x-1">
       {navbarLinks.map((item) => {
         const isActive =
           item.href === "/"
@@ -18,20 +18,21 @@ export const NavLinksDesktop = () => {
             : pathname.startsWith(item.href);
 
         return (
-          <button
+          <Link
             key={item.title}
+            href={item.href}
             className={cn(
-              "px-2 py-1 font-medium flex items-center gap-1 focus:outline-none bg-transparent hover:bg-transparent transition-colors duration-200 cursor-pointer",
+              "px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 cursor-pointer relative",
               isActive
-                ? "text-green-500 dark:text-green-400"
-                : "muted-link"
+                ? "text-emerald-400 font-semibold bg-emerald-500/10 border border-emerald-500/20"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
             )}
           >
-            <Link href={item.href}>{item.title}</Link>
-          </button>
+            {item.title}
+          </Link>
         );
       })}
-    </>
+    </div>
   );
 };
 
@@ -43,7 +44,7 @@ export const NavLinksMobile = ({
   const pathname = usePathname();
 
   return (
-    <>
+    <div className="flex flex-col space-y-1">
       {navbarLinks.map((item) => {
         const isActive =
           item.href === "/"
@@ -51,22 +52,26 @@ export const NavLinksMobile = ({
             : pathname.startsWith(item.href);
 
         return (
-          <button
+          <Link
             key={item.title}
+            href={item.href}
+            onClick={() => setMobileOpen(false)}
             className={cn(
-              "flex items-center justify-between py-2 px-2 text-left text-lg font-medium rounded-md transition focus:outline-none bg-transparent hover:bg-transparent cursor-pointer",
+              "flex items-center justify-between py-2.5 px-3 text-base font-medium rounded-lg transition-colors cursor-pointer",
               isActive
-                ? "text-green-500 dark:text-green-400"
-                : "muted-link"
+                ? "text-emerald-400 bg-emerald-500/10 font-semibold border border-emerald-500/20"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
             )}
           >
-            <Link href={item.href} onClick={() => setMobileOpen(false)}>
-              {item.title}
-            </Link>
-          </button>
+            <span>{item.title}</span>
+            {isActive && (
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            )}
+          </Link>
         );
       })}
-    </>
+    </div>
   );
 };
+
 

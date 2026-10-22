@@ -22,10 +22,17 @@ export interface Link {
   
   export interface TestimonialType {
     id: string;
-    name?: string;
-    image?: string;
-    text?: string;
-    rating?: number;
+    name: string;
+    username: string;
+    avatar: string;
+    role: string;
+    text: string;
+    streak?: string;
+    stars?: number;
+    repo?: string;
+    tag?: string;
+    date?: string;
+    verified?: boolean;
   }
   
   export interface History {
@@ -60,9 +67,16 @@ export interface Link {
     twitter_username: string;
   }
 
-  export const formSchema = z
+export const formSchema = z
   .object({
-    mode: z.enum(["single", "range", "year"]),
+    mode: z.enum([
+      "single",
+      "range",
+      "year_realistic",
+      "year_streak",
+      "pattern",
+      "custom",
+    ]),
     singleDate: z.date().optional(),
     startDate: z.date().optional(),
     endDate: z.date().optional(),
@@ -73,20 +87,22 @@ export interface Link {
         (val) => {
           if (!val) return true;
           const yearNum = parseInt(val, 10);
-          return yearNum >= 2020 && yearNum < today.getFullYear();
+          return yearNum >= 2020 && yearNum <= today.getFullYear();
         },
         {
-          message: `Year must be between 2000 and ${today.getFullYear() - 1}`,
+          message: `Year must be between 2020 and ${today.getFullYear()}`,
           path: ["year"],
         }
       ),
+    pattern: z
+      .enum(["heart", "wave", "matrix", "hi", "invader", "star"])
+      .optional(),
+    shade: z.number().min(1).max(4).optional(),
+    density: z.enum(["natural", "dense", "light"]).optional(),
   })
-  // Validate required fields per mode
-  // Validate required fields per mode
   .superRefine((data, ctx) => {
     if (data.mode === "single" && !data.singleDate) {
       ctx.addIssue({
-        // code: z.ZodIssueCode.custom,
         message: "Please select a date.",
         path: ["singleDate"],
       });
@@ -94,28 +110,30 @@ export interface Link {
     if (data.mode === "range") {
       if (!data.startDate) {
         ctx.addIssue({
-          // code: z.ZodIssueCode.custom,
           message: "Please select a start date.",
           path: ["startDate"],
         });
       }
       if (!data.endDate) {
         ctx.addIssue({
-          // code: z.ZodIssueCode.custom,
           message: "Please select an end date.",
           path: ["endDate"],
         });
       }
     }
-    if (data.mode === "year" && !data.year) {
+    if (
+      (data.mode === "year_realistic" ||
+        data.mode === "year_streak" ||
+        data.mode === "pattern" ||
+        data.mode === "custom") &&
+      !data.year
+    ) {
       ctx.addIssue({
-        // code: z.ZodIssueCode.custom,
         message: "Please enter a year.",
         path: ["year"],
       });
     }
   })
-  // Ensure endDate > startDate for range mode
   .refine(
     (data) => {
       if (data.mode === "range" && data.startDate && data.endDate) {
@@ -129,11 +147,35 @@ export interface Link {
     }
   );
 
+export interface CommitEntry {
+  date: string; // ISO format or YYYY-MM-DD
+  count?: number; // Level / commit count
+  message?: string;
+}
 
-  export interface SyntheticPushPayload {
-    repo: string; // "username/repo-name"
-    accessToken: string;
-    date: string; // ISO format
-    authorName: string;
-    authorEmail: string;
-  }
+export interface SyntheticPushPayload {
+  repo: string; // "username/repo-name"
+  accessToken: string;
+  authorName: string;
+  authorEmail: string;
+  date?: string; // Single date
+  dates?: string[];
+  commits?: CommitEntry[];
+  mode?:
+    | "single"
+    | "range"
+    | "year_realistic"
+    | "year_streak"
+    | "pattern"
+    | "custom";
+  creditsRequired?: number;
+  metadata?: {
+    mode?: string;
+    pattern?: string;
+    year?: string | number;
+    shade?: number;
+    activeDays?: number;
+    totalCommits?: number;
+    [key: string]: any;
+  };
+}

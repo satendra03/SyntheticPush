@@ -19,3 +19,4 @@ export * from "./repositories";
 export * from "./repositories/repo-card";
 export * from "./profile";
 export * from "./readme";
+export * from "./interactive-graph-sandbox";

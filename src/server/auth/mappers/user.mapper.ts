@@ -20,12 +20,19 @@ export function mapToCreateUserDTO({
     return null;
   }
 
-  const githubProfile = profile;
+  const githubProfile = (profile as any) || {};
+  const githubUser = (user as any) || {};
+
+  const id = String(githubProfile.id || githubUser.id || account.providerAccountId || "");
+  const username = githubProfile.login || githubUser.username || githubUser.name || "";
+  const avatarUrl = githubProfile.avatar_url || githubUser.image || "";
+  const profileUrl = githubProfile.html_url || (username ? `https://github.com/${username}` : "");
+
   const github: GitHubInfo = {
-    id: String((githubProfile as any).id),
-    username: (githubProfile as any).login || "",
-    avatarUrl: (githubProfile as any).avatar_url || "",
-    profileUrl: (githubProfile as any).html_url || "",
+    id,
+    username,
+    avatarUrl,
+    profileUrl,
   };
 
   return { github };

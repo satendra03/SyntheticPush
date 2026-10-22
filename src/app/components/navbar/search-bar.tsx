@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 export const SearchBar = ({
   placeholder,
@@ -16,8 +16,9 @@ export const SearchBar = ({
 
   const handleSearch = () => {
     if (search.trim()) {
+      const query = search.trim().replace(/^@/, "");
       setSearch("");
-      window.open(`https://github.com/${search}`, "_blank");
+      window.open(`https://github.com/${query}`, "_blank");
     }
   };
 
@@ -28,29 +29,26 @@ export const SearchBar = ({
   };
 
   return (
-    <div className={cn("w-full", className)}>
-      <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-          <svg
-            className="h-4 w-4 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="M21 21l-4.35-4.35" />
-          </svg>
+    <div className={cn("w-full max-w-xs", className)}>
+      <div className="relative flex items-center">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-muted-foreground">
+          <Search className="w-3.5 h-3.5" />
         </span>
-        <Input
-          className="w-full border border-gray-300  dark:border-[#30363D] py-2 pl-9 pr-3 text-sm placeholder-muted-foreground focus:outline-none focus:ring-0"
+        <input
+          className="w-full h-8.5 rounded-lg border border-border/80 bg-muted/40 dark:bg-[#111a2e]/60 py-1.5 pl-8 pr-12 text-xs placeholder:text-muted-foreground/70 focus:outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/40 transition-all font-mono"
           placeholder={placeholder}
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleKeyDown}
         />
+        <div className="absolute right-2 pointer-events-none">
+          <kbd className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground/70 bg-muted/80 dark:bg-white/5 border border-border/60 rounded">
+            /
+          </kbd>
+        </div>
       </div>
     </div>
   );
 };
+

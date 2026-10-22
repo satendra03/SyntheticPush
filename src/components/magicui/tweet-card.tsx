@@ -237,7 +237,16 @@ export const MagicTweet = ({
   tweet: Tweet;
   className?: string;
 }) => {
-  const enrichedTweet = enrichTweet(tweet);
+  if (!tweet || typeof tweet !== "object") return null;
+  let enrichedTweet: EnrichedTweet | null = null;
+  try {
+    enrichedTweet = enrichTweet(tweet);
+  } catch (err) {
+    console.error("Failed to enrich tweet data:", err);
+    return null;
+  }
+  if (!enrichedTweet) return null;
+
   return (
     <div
       className={cn(

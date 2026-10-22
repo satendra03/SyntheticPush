@@ -6,6 +6,8 @@ import Link from "next/link";
 import { GitHubIcon } from "@/icons/index";
 import { SearchBar, NavLinksDesktop, NavLinksMobile } from "@/app/components";
 import { AuthButton } from "@/app/components/auth/auth-button";
+import { Star, Menu, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,91 +25,99 @@ export const Navbar = () => {
   }, [mobileOpen]);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-60 bg-background border-b border-border">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border/80 transition-all">
       <div className="container">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 items-center justify-between gap-4">
           {/* Mobile menu button */}
           <div className="flex items-center lg:hidden">
             <button
               onClick={() => setMobileOpen(true)}
-              className="inline-flex items-center justify-center p-2 rounded-md cursor-pointer focus:outline-none"
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 cursor-pointer focus:outline-none"
               aria-label="Open main menu"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              <Menu className="h-5 w-5" />
             </button>
           </div>
 
-          {/* Logo */}
-          <div className="hidden lg:flex items-center">
-            <Link href="/">
-              <span className="sr-only">SyntheticPush</span>
-              <GitHubIcon />
+          {/* Logo & Brand */}
+          <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="relative flex items-center justify-center p-1.5 rounded-xl bg-muted/60 dark:bg-white/5 border border-border/80 group-hover:border-emerald-500/50 transition-all">
+                <GitHubIcon className="w-5 h-5 text-foreground group-hover:text-emerald-400 transition-colors" />
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              </div>
+              <span className="font-bold text-base tracking-tight font-mono text-foreground group-hover:text-emerald-400 transition-colors">
+                Synthetic<span className="text-emerald-400">Push</span>
+              </span>
             </Link>
+            <Badge 
+              variant="outline" 
+              className="hidden sm:inline-flex text-[10px] px-2 py-0.5 font-mono text-muted-foreground border-border/80 bg-muted/30"
+            >
+              v2.0
+            </Badge>
           </div>
 
-          {/* Desktop menu */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-4 flex-1 ml-4">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center flex-1 justify-center">
             <NavLinksDesktop />
           </div>
 
-          {/* Search bar */}
-          <div className="hidden lg:flex justify-center">
-            <SearchBar className="w-full" placeholder="Search GitHub account" />
-          </div>
+          {/* Search Bar & GitHub Star & Auth */}
+          <div className="flex items-center gap-3">
+            <div className="hidden md:flex">
+              <SearchBar className="w-52 lg:w-64" placeholder="Search GitHub user..." />
+            </div>
 
-          {/* Auth buttons */}
-          <div className="flex items-center space-x-2 ml-4">
+            <Link
+              href="https://github.com/satendra03/SyntheticPush"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border/80 bg-muted/30 hover:bg-muted hover:border-emerald-500/40 text-foreground transition-all duration-200"
+            >
+              <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+              <span>Star</span>
+            </Link>
+
+            {/* Auth Menu */}
             <AuthButton />
           </div>
         </div>
       </div>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile Drawer Overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-opacity-60 flex lg:hidden">
-          <div className="relative bg-background dark:bg-secondary w-full h-full flex flex-col shadow-xl">
-            <div className="flex h-16 items-center justify-between px-4 border-b border-border">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex lg:hidden">
+          <div className="relative bg-background dark:bg-[#0d1424] w-full max-w-xs h-full flex flex-col shadow-2xl border-r border-border p-6 space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-border">
+              <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
+                <GitHubIcon className="w-5 h-5 text-emerald-400" />
+                <span className="font-bold font-mono text-sm">SyntheticPush</span>
+              </Link>
               <button
                 onClick={() => setMobileOpen(false)}
-                className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-secondary focus:outline-none"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 focus:outline-none"
                 aria-label="Close menu"
               >
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <X className="w-5 h-5" />
               </button>
-              <GitHubIcon />
             </div>
-            <div className="flex-1 flex flex-col gap-2 px-4 py-6">
+
+            <div className="space-y-4">
+              <SearchBar placeholder="Search GitHub profile..." />
               <NavLinksMobile setMobileOpen={setMobileOpen} />
-              <div className="px-4 p-4 flex flex-col w-full">
-                <SearchBar
-                  className="w-full mb-4"
-                  placeholder="Search GitHub account"
-                />
-              </div>
+            </div>
+
+            <div className="pt-4 border-t border-border mt-auto">
+              <Link
+                href="https://github.com/satendra03/SyntheticPush"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg text-xs font-semibold border border-border bg-muted/40 text-foreground hover:border-emerald-500/40"
+              >
+                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                <span>Star on GitHub</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -115,3 +125,4 @@ export const Navbar = () => {
     </nav>
   );
 };
+

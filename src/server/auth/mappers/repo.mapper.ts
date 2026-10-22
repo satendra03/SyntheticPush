@@ -3,11 +3,14 @@
 import { RepoType } from "@/server/dtos/repo.dto";
 
 export const mapToRepoType = (repo: any): RepoType[] => {
-    return repo.map((repo: any) => ({
-        name: repo.name,
-        description: repo.description,
-        language: repo.language,
-        stargazers_count: repo.stargazers_count,
-        visibility: repo.visibility,
-    }))
-}
+    if (!Array.isArray(repo)) {
+        return [];
+    }
+    return repo.map((r: any) => ({
+        name: r.name,
+        description: r.description,
+        language: r.language,
+        stargazers_count: r.stargazers_count,
+        visibility: r.visibility,
+    }));
+};

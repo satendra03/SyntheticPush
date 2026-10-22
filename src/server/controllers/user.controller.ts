@@ -25,14 +25,22 @@ export const checkCredits = async (username: string) => {
 };
 
 
-export const addPushHistory = async (username: string) => {
+export const addPushHistory = async (
+  username: string,
+  creditsUsed: number = 1,
+  metadata?: Record<string, any>
+) => {
   const user = await findUserByUsername(username);
   if (!user) {
     return { error: "User not found" };
   }
-  // here we will update the history that at this date a push is made and used this credits
   const history = user.history || [];
-  history.push({ type: "push", value: 1, createdAt: new Date() });
+  history.push({
+    type: "push",
+    value: creditsUsed,
+    createdAt: new Date(),
+    ...(metadata || {}),
+  });
   await db.collection("users").doc(username).update({ history });
   return { success: true };
 };

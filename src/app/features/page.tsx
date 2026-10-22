@@ -1,116 +1,130 @@
 // src/app/features/page.tsx
-
 import React from "react";
 import {
   GitCommit,
-  LayoutTemplate,
   CreditCard,
-  ShieldCheck,
   Zap,
   BarChart3,
   Calendar,
-  Sparkles
+  Sparkles,
+  ArrowRight,
+  Terminal,
+  Cpu,
+  Lock
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Platform Features",
+  description: "Explore the powerful Git simulation, backdating engine, and automated contribution features of SyntheticPush.",
+};
 
 const Features = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-grid-github opacity-50 pointer-events-none -z-10" />
+      <div className="absolute top-1/4 right-1/4 w-[600px] h-[350px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden text-center">
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="relative py-20 lg:py-28 overflow-hidden text-center">
+        <div className="container mx-auto px-4 relative z-10 max-w-3xl space-y-6">
           <Badge
-            variant="secondary"
-            className="mb-6 px-4 py-1 text-sm rounded-full backdrop-blur-sm border-foreground/10 bg-foreground/10"
+            variant="outline"
+            className="px-3.5 py-1 text-xs font-mono rounded-full border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
           >
-            <Zap className="w-3 h-3 mr-2 text-foreground" />
-            Powerful Features
+            <Zap className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+            Capabilities & Architecture
           </Badge>
 
-          <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight bg-gradient-to-br from-foreground to-foreground/50 bg-clip-text text-transparent">
-            Everything You Need
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
+            Everything Built for <br />
+            <span className="text-gradient-emerald">Maximum Control</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            SyntheticPush is the ultimate tool for developers who want to have fun with their GitHub profile, test workflows, or just enjoy a little harmless mischief.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            From precision historical backdating to automated streak preservation, explore the full suite of Git workflow tools.
           </p>
         </div>
-
-        {/* Background blobs */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-foreground/5 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-foreground/5 rounded-full blur-3xl -z-10" />
       </section>
 
-      {/* Main Features Grid */}
-      <section className="py-12 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      {/* Main Features Bento Grid */}
+      <section className="py-12 bg-muted/20 border-y border-border/60">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FeatureCard
-              icon={<GitCommit className="w-8 h-8" />}
-              title="GitHub Commits"
-              description="Pick any date, and we'll commit for you. Perfect for streaks, demos, or just for laughs."
+              icon={<GitCommit className="w-6 h-6 text-emerald-400" />}
+              badge="Core Engine"
+              title="Timestamp Precision Commits"
+              description="Target any exact historical date, time, and timezone. SyntheticPush constructs legitimate Git tree objects and dispatches them straight to your repository."
             />
             <FeatureCard
-              icon={<LayoutTemplate className="w-8 h-8" />}
-              title="Clean UI"
-              description="Minimal design, maximum sarcasm. Enjoy a smooth, distraction-free experience."
+              icon={<Lock className="w-6 h-6 text-emerald-400" />}
+              badge="Security"
+              title="Zero-Knowledge Secret Management"
+              description="No database storage of GitHub personal access tokens. Authentication is session-scoped and strictly scoped to repository push permissions."
             />
             <FeatureCard
-              icon={<CreditCard className="w-8 h-8" />}
-              title="Credit System"
-              description="Earn or buy credits to use features. No hidden fees, no subscriptions, just simple credits."
+              icon={<CreditCard className="w-6 h-6 text-emerald-400" />}
+              badge="Fair Pricing"
+              title="Predictable Credits System"
+              description="No sneaky recurring subscriptions. 1 credit = 3 commits (₹1 = 1 credit). Transparent, anti-abuse pricing with 3 free credits on signup."
             />
             <FeatureCard
-              icon={<ShieldCheck className="w-8 h-8" />}
-              title="No Personal Data"
-              description="Just GitHub login, nothing else. We respect your privacy and keep things simple."
+              icon={<Terminal className="w-6 h-6 text-emerald-400" />}
+              badge="Developer Experience"
+              title="Lightweight & Non-Destructive"
+              description="Commits are appended cleanly to dedicated or existing branches without interfering with your production commits or merge trees."
             />
           </div>
         </div>
       </section>
 
-      {/* Upcoming Features */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 flex items-center justify-center gap-2">
-              <Sparkles className="w-6 h-6" />
-              Coming Soon
-            </h2>
-            <p className="text-muted-foreground">We&apos;re just getting started. Here&apos;s what&apos;s next.</p>
+      {/* Upcoming Feature Pipeline */}
+      <section className="py-24">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-14 space-y-3">
+            <Badge variant="outline" className="font-mono text-xs text-emerald-400 border-emerald-500/30 bg-emerald-500/10">
+              <Sparkles className="w-3.5 h-3.5 mr-1" />
+              Product Roadmap
+            </Badge>
+            <h2 className="heading">Upcoming Milestones</h2>
+            <p className="caption text-base">Features currently in active development for the next release.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <UpcomingFeature
-              icon={<Calendar className="w-6 h-6 text-foreground/80" />}
-              title="Bulk Commit Scheduling"
-              description="Plan your commits for the entire week in one go."
+              icon={<Calendar className="w-6 h-6 text-emerald-400" />}
+              title="Batch Date Range Selector"
+              description="Select multi-month spans or entire quarters and generate randomized commit curves in one click."
             />
             <UpcomingFeature
-              icon={<BarChart3 className="w-6 h-6 text-foreground/80" />}
-              title="Analytics Dashboard"
-              description="Visualize your fake productivity with beautiful charts."
+              icon={<BarChart3 className="w-6 h-6 text-emerald-400" />}
+              title="Streak Analytics HUD"
+              description="Detailed heatmap insights, commit density charts, and streak preservation reminders."
             />
             <UpcomingFeature
-              icon={<GitCommit className="w-6 h-6 text-foreground/80" />}
-              title="Visual Graph Selector"
-              description="Click directly on a contribution graph to add commits."
+              icon={<Cpu className="w-6 h-6 text-emerald-400" />}
+              title="Pixel Art Generator"
+              description="Upload 7x52 pixel art or text and auto-generate the exact commit coordinate payload."
             />
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 border-t bg-muted/20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to try SyntheticPush?</h2>
-          <p className="mb-8 text-xl text-muted-foreground max-w-xl mx-auto">
-            Sign in with GitHub and start having fun with your commit history today!
+      <section className="py-20 border-t border-border/80 bg-muted/30">
+        <div className="container mx-auto px-4 text-center max-w-2xl space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold">Ready to take command of your graph?</h2>
+          <p className="text-muted-foreground text-base md:text-lg">
+            Connect your GitHub account in seconds. 3 free credits waiting on your dashboard.
           </p>
           <Link href="/">
-            <Button size="lg" className="rounded-full font-semibold px-8 h-12 text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95 bg-green-500 hover:bg-green-600">
-              Get Started Now
+            <Button size="lg" className="rounded-xl font-bold px-8 py-6 text-base shadow-xl shadow-emerald-500/20 hover:scale-105 active:scale-95 bg-emerald-500 hover:bg-emerald-600 text-white transition-all cursor-pointer inline-flex items-center gap-2">
+              <span>Get Started Free</span>
+              <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
         </div>
@@ -119,26 +133,55 @@ const Features = () => {
   );
 };
 
-const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => {
+const FeatureCard = ({
+  icon,
+  badge,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  badge: string;
+  title: string;
+  description: string;
+}) => {
   return (
-    <div className="bg-background border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-      <div className="mb-4 p-2 bg-muted rounded-lg w-fit group-hover:bg-foreground/10 transition-colors duration-300 text-foreground">
-        {icon}
+    <div className="bg-card/70 border border-border/80 rounded-2xl p-7 hover:border-emerald-500/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+      <div className="flex items-center justify-between mb-4">
+        <div className="p-3 rounded-xl bg-muted/80 dark:bg-white/5 border border-border/70 group-hover:scale-110 transition-transform">
+          {icon}
+        </div>
+        <span className="text-xs font-mono font-medium text-muted-foreground px-2.5 py-1 rounded-full bg-muted/50 border border-border/60">
+          {badge}
+        </span>
       </div>
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-muted-foreground leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-emerald-400 transition-colors">
+        {title}
+      </h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        {description}
+      </p>
     </div>
   );
 };
 
-const UpcomingFeature = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => {
+const UpcomingFeature = ({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) => {
   return (
-    <div className="flex flex-col items-center text-center p-6 bg-card border rounded-xl shadow-sm hover:shadow-md transition-all">
-      <div className="p-3 bg-muted/50 rounded-full mb-4 ring-1 ring-border">{icon}</div>
-      <span className="font-semibold text-lg mb-2">{title}</span>
-      <p className="text-sm text-muted-foreground">{description}</p>
+    <div className="flex flex-col items-start p-6 bg-card/60 border border-border/80 rounded-2xl shadow-sm hover:border-emerald-500/30 transition-all">
+      <div className="p-3 bg-emerald-500/10 rounded-xl mb-4 text-emerald-400 ring-1 ring-emerald-500/20">
+        {icon}
+      </div>
+      <h4 className="font-bold text-base mb-2 text-foreground">{title}</h4>
+      <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
     </div>
-  )
-}
+  );
+};
 
 export default Features;

@@ -1,13 +1,14 @@
 // src/app/about/page.tsx
-
 import React from "react";
 import {
   GitCommit,
   CalendarDays,
   ShieldCheck,
-  Smile,
   Heart,
-  Github
+  Github,
+  Sparkles,
+  ArrowRight,
+  Cpu
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -21,92 +22,88 @@ export const metadata: Metadata = {
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 bg-grid-github opacity-50 pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          {/* <Badge
-              variant="secondary"
-              className="inline-flex items-center justify-center gap-2 p-2 mb-6 rounded-full bg-muted/50 backdrop-blur-sm border border-foreground/20 hover:bg-muted/80 transition-colors "
-            >
-            <span className="text-sm font-medium"></span>
-            </Badge> */}
-
-
+      <section className="relative py-20 lg:py-28 overflow-hidden text-center">
+        <div className="container mx-auto px-4 relative z-10 max-w-3xl space-y-6">
           <Badge
-            variant="secondary"
-            className="mb-6 px-4 py-1 text-sm rounded-full backdrop-blur-sm border-foreground/10 bg-foreground/10"
+            variant="outline"
+            className="px-3.5 py-1 text-xs font-mono rounded-full border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
           >
-            <Github className="w-3 h-3 mr-2 text-foreground" />
-            Free (Sometime)
+            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+            Engineering Story
           </Badge>
 
-          <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-            About SyntheticPush
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
+            About <span className="text-gradient-emerald">SyntheticPush</span>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Built for developers who want to keep their GitHub graph green,
-            or just have a little fun with their commit history.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Built for engineers and creators who value aesthetic perfection in their GitHub profile, test contribution graph algorithms, and desire total control over their commit timeline.
           </p>
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3 pt-2">
             <Link href="/">
-              <Button size="lg" className="rounded-full bg-green-500 hover:bg-green-600 font-semibold active:scale-95 transition-all duration-300 hover:scale-105">
-                Try it now
+              <Button size="lg" className="rounded-xl bg-emerald-500 hover:bg-emerald-600 font-semibold px-6 py-5 text-white shadow-lg shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all">
+                <span>Try It Live</span>
+                <ArrowRight className="w-4 h-4 ml-1.5" />
               </Button>
             </Link>
             <Link href="https://github.com/satendra03/SyntheticPush" target="_blank">
-              <Button variant="outline" size="lg" className="rounded-full bg-foreground/20 hover:bg-foreground/30 dark:bg-foreground/20 dark:hover:bg-foreground/30 hover:shadow-lg font-semibold active:scale-95 transition-all duration-300 hover:scale-105">
-                View on GitHub
+              <Button variant="outline" size="lg" className="rounded-xl border-border/80 bg-card/60 backdrop-blur-md hover:bg-muted font-medium px-6 py-5 text-foreground transition-all">
+                <Github className="w-4 h-4 mr-2 text-foreground" />
+                <span>View on GitHub</span>
               </Button>
             </Link>
           </div>
         </div>
-
-        {/* Background gradient blob */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-500/10 rounded-full blur-3xl -z-10" />
       </section>
 
-      {/* Why SyntheticPush Grid */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why SyntheticPush?</h2>
+      {/* Why SyntheticPush Bento Grid */}
+      <section className="py-16 bg-muted/20 border-y border-border/60">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+            <h2 className="heading">Why Developers Choose SyntheticPush</h2>
+            <p className="caption text-base">Engineered to make Git activity management frictionless and dependable.</p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <FeatureCard
-              icon={<CalendarDays className="w-8 h-8" />}
-              title="Missed a day?"
-              description="We've got your back. Fill in those empty squares easily."
+              icon={<CalendarDays className="w-6 h-6 text-emerald-400" />}
+              title="Missed a Sunday?"
+              description="Fill in accidental gaps in your timeline in seconds without touching complex git rebases."
             />
             <FeatureCard
-              icon={<GitCommit className="w-8 h-8" />}
-              title="Forgot to commit?"
-              description="No worries. Generate backdated commits in seconds."
+              icon={<GitCommit className="w-6 h-6 text-emerald-400" />}
+              title="Time Travel Engine"
+              description="Generate backdated commits targeting historical milestones or offline local work."
             />
             <FeatureCard
-              icon={<ShieldCheck className="w-8 h-8" />}
-              title="Perfect Graph"
-              description="Aiming for that 100% contribution streak? Go for it."
+              icon={<ShieldCheck className="w-6 h-6 text-emerald-400" />}
+              title="Zero-Storage OAuth"
+              description="We never store your personal access tokens or GitHub keys. Everything is stateless and isolated."
             />
             <FeatureCard
-              icon={<Smile className="w-8 h-8" />}
-              title="Just for Fun"
-              description="Prank your friends or test your graph. We won't tell."
+              icon={<Cpu className="w-6 h-6 text-emerald-400" />}
+              title="Webhook & UI Testing"
+              description="Perfect for testing custom contribution graph widgets, GitHub API parsers, and bots."
             />
           </div>
         </div>
       </section>
 
       {/* Philosophy Section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="container mx-auto px-4 max-w-4xl text-center">
-          <div className="bg-card border rounded-2xl p-8 md:p-12 shadow-sm">
-            <div className="w-16 h-16 bg-foreground/10 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-8 h-8" />
+          <div className="bg-card/70 border border-border/80 rounded-3xl p-8 md:p-14 shadow-xl backdrop-blur-xl relative overflow-hidden">
+            <div className="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/20">
+              <Heart className="w-7 h-7 fill-emerald-400/20" />
             </div>
-            <h2 className="text-3xl font-bold mb-6">Our Philosophy</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              We believe in fun, transparency, and giving developers a little more control
-              (and a little less guilt) over their commit history. Whether you&apos;re a
-              perfectionist, a procrastinator, or just curious, SyntheticPush is here for you.
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Philosophy</h2>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+              We believe in transparency, developer productivity, and giving engineers complete command over their developer artifacts. Whether you&apos;re an open-source maintainer syncing enterprise work, an educator demonstrating Git internals, or someone polishing their portfolio, SyntheticPush is crafted for you.
             </p>
           </div>
         </div>
@@ -117,10 +114,12 @@ const About = () => {
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => {
   return (
-    <div className="bg-background border rounded-xl p-6 hover:shadow-lg transition-all hover:-translate-y-1">
-      <div className="mb-4">{icon}</div>
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+    <div className="bg-card/60 border border-border/80 rounded-2xl p-6 hover:border-emerald-500/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+      <div className="p-3 rounded-xl bg-muted/80 dark:bg-white/5 w-fit mb-4 border border-border/70 group-hover:scale-110 transition-transform">
+        {icon}
+      </div>
+      <h3 className="text-lg font-bold mb-2 text-foreground group-hover:text-emerald-400 transition-colors">{title}</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
     </div>
   );
 };

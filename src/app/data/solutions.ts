@@ -12,7 +12,7 @@ export const solutions: CardType[] = [
   },
   {
     title: "Check Credits",
-    description: "Every commit costs a credit. We show you exactly how many youve got — no hidden math.",
+    description: "1 credit gives 3 commits (₹1 = 1 credit). We show you exactly how many you've got — zero hidden math.",
     icon: CreditCard,
   },
   {
