@@ -6,7 +6,6 @@ import { authOptions } from "@/server/auth/configs/nextauth.config";
 import { sendSyntheticPush } from "@/server/controllers/github.controller";
 import {
   addPushHistory,
-  checkCredits,
 } from "@/server/controllers/user.controller";
 import {
   findUserByUsername,

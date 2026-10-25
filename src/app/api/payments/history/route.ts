@@ -1,11 +1,11 @@
 // src/app/api/payments/history/route.ts
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/server/auth/configs/nextauth.config";
 import { db } from "@/server/utils/firebase-admin";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.username) {

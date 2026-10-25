@@ -1,17 +1,15 @@
 // src/components/PaymentSubmitForm.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import {
-  CreditCard,
   CheckCircle2,
   Clock,
   XCircle,
   AlertCircle,
   Loader2,
   Send,
-  Sparkles,
   Receipt,
   QrCode,
   Copy,
@@ -38,7 +36,7 @@ export function PaymentSubmitForm() {
 
   const [amount, setAmount] = useState<string>("50");
   const [transactionId, setTransactionId] = useState<string>("");
-  const [paymentMethod, setPaymentMethod] = useState<string>("GPay");
+  const paymentMethod = "GPay";
   const [paymentDate, setPaymentDate] = useState<string>(
     () => new Date().toISOString().split("T")[0]
   );
@@ -54,7 +52,7 @@ export function PaymentSubmitForm() {
 
   const upiId = "satendrakumarparteti@oksbi";
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     if (!session?.user) return;
     try {
       setLoadingHistory(true);
@@ -68,13 +66,13 @@ export function PaymentSubmitForm() {
     } finally {
       setLoadingHistory(false);
     }
-  };
+  }, [session?.user]);
 
   useEffect(() => {
     if (session?.user) {
       fetchHistory();
     }
-  }, [session]);
+  }, [session?.user, fetchHistory]);
 
   const handleCopyUpi = () => {
     navigator.clipboard.writeText(upiId);
@@ -277,7 +275,7 @@ export function PaymentSubmitForm() {
                 className="w-full px-3 py-2.5 rounded-xl border border-border/80 bg-background/70 font-mono text-sm text-foreground focus:outline-none focus:border-emerald-500 transition"
               />
               <p className="text-[11px] text-muted-foreground mt-1">
-                Found in your UPI app receipt as "UPI Ref No." or "UTR".
+                Found in your UPI app receipt as &quot;UPI Ref No.&quot; or &quot;UTR&quot;.
               </p>
             </div>
 
@@ -305,7 +303,7 @@ export function PaymentSubmitForm() {
               type="text"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="e.g. Sent from PhonePe account of Satendra"
+              placeholder="e.g. Sent from Google Pay account of Satendra"
               className="w-full px-3 py-2.5 rounded-xl border border-border/80 bg-background/70 text-sm text-foreground focus:outline-none focus:border-emerald-500 transition"
             />
           </div>

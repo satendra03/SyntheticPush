@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     const userEmail = session.user.email || "";
 
     const body = await req.json();
-    const { amount, transactionId, paymentDate, paymentMethod, notes } = body;
+    const { amount, transactionId, paymentDate, notes } = body;
 
     const numAmount = Number(amount);
     if (isNaN(numAmount) || numAmount < 1) {
