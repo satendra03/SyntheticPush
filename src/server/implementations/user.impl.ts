@@ -89,6 +89,51 @@ export const updateUserCredits = async (username: string, credits: number) => {
   return { success: true, credits };
 };
 
+export const setUserBanStatus = async (
+  username: string,
+  isBanned: boolean,
+  banReason: string = ""
+) => {
+  const user = await findUserByUsername(username);
+  if (!user) {
+    return { error: "User not found" };
+  }
+  const now = Timestamp.fromDate(new Date());
+  await db.collection("users").doc(username).update({
+    isBanned,
+    banReason: isBanned ? banReason : null,
+    bannedAt: isBanned ? now : null,
+  });
+  return { success: true, isBanned };
+};
+
+export const recordPushLog = async (logData: {
+  username: string;
+  repo: string;
+  mode: string;
+  commitsCount: number;
+  creditsUsed: number;
+  status: "success" | "failed";
+  errorMessage?: string | null;
+  metadata?: Record<string, any>;
+}) => {
+  try {
+    const now = Timestamp.fromDate(new Date());
+    const docRef = db.collection("push_logs").doc();
+    const entry = {
+      id: docRef.id,
+      ...logData,
+      errorMessage: logData.errorMessage || null,
+      createdAt: now,
+    };
+    await docRef.set(entry);
+    return entry;
+  } catch (error) {
+    console.error("Error writing push_logs entry:", error);
+    return null;
+  }
+};
+
 
 
 

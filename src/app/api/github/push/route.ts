@@ -8,7 +8,11 @@ import {
   addPushHistory,
   checkCredits,
 } from "@/server/controllers/user.controller";
-import { updateUserCredits } from "@/server/implementations/user.impl";
+import {
+  findUserByUsername,
+  recordPushLog,
+  updateUserCredits,
+} from "@/server/implementations/user.impl";
 import { SyntheticPushPayload } from "@/types";
 
 export async function POST(req: NextRequest) {
@@ -63,18 +67,26 @@ export async function POST(req: NextRequest) {
     // Prevent payload manipulation: always charge at least what the server calculates
     const requiredCredits = Math.max(serverCalculatedCredits, clientProvidedCredits);
 
-    // First check user's credit balance
-    const credits = await checkCredits(username);
-
-    if (credits.error) {
-      console.log("Credit check failed:", credits.error);
+    // First check user's credit balance and ban status
+    const userRecord = await findUserByUsername(username);
+    if (!userRecord) {
       return NextResponse.json(
-        { error: credits.error, type: "credits" },
-        { status: 400 }
+        { error: "User profile not found. Please log in again.", type: "auth" },
+        { status: 404 }
       );
     }
 
-    const availableCredits = credits?.credits || 0;
+    if (userRecord.isBanned) {
+      return NextResponse.json(
+        {
+          error: `Your account has been suspended${userRecord.banReason ? `: ${userRecord.banReason}` : ""}. Please contact support if you believe this is an error.`,
+          type: "banned",
+        },
+        { status: 403 }
+      );
+    }
+
+    const availableCredits = userRecord.credits ?? 0;
 
     if (availableCredits < requiredCredits) {
       console.log(`Insufficient credits. Required: ${requiredCredits} for ${totalCommitsCount} commits, Available: ${availableCredits}`);
@@ -104,6 +116,17 @@ export async function POST(req: NextRequest) {
         metadata: payload.metadata || {},
       });
 
+      // Record in global push_logs collection for the dashboard
+      await recordPushLog({
+        username,
+        repo: payload.repo,
+        mode: payload.mode || "single",
+        commitsCount: totalCommitsCount,
+        creditsUsed: requiredCredits,
+        status: "success",
+        metadata: payload.metadata || {},
+      });
+
       return NextResponse.json({
         success: true,
         message: result.message || "Commits dispatched successfully.",
@@ -113,6 +136,18 @@ export async function POST(req: NextRequest) {
       });
     } else {
       console.log("Push failed:", result.error);
+
+      // Record failed push in push_logs
+      await recordPushLog({
+        username,
+        repo: payload.repo,
+        mode: payload.mode || "single",
+        commitsCount: totalCommitsCount,
+        creditsUsed: 0,
+        status: "failed",
+        errorMessage: result.message || result.error || "Git push failed",
+      });
+
       return NextResponse.json(
         {
           error: result.message || result.error || "Git push failed. Please check repository permissions.",

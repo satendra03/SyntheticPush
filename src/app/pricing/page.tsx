@@ -23,6 +23,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Metadata } from "next";
+import { PaymentSubmitForm } from "@/components/PaymentSubmitForm";
 
 export const metadata: Metadata = {
   title: "Pricing & Credits",
@@ -185,13 +186,13 @@ const PricingPage = () => {
                       <div className="p-2 bg-blue-500/10 text-blue-400 rounded-lg">
                         <QrCode className="w-5 h-5" />
                       </div>
-                      <span className="font-semibold text-sm">UPI Direct (India) • ₹1 = 1 Credit</span>
+                      <span className="font-semibold text-sm">Google Pay (GPay) • ₹1 = 1 Credit</span>
                     </div>
-                    <Badge variant="outline" className="font-mono text-[10px] text-blue-400 border-blue-500/30">
-                      0% Fee
+                    <Badge variant="outline" className="font-mono text-[10px] text-emerald-400 border-emerald-500/30 bg-emerald-500/10">
+                      GPay Only
                     </Badge>
                   </div>
-                  <p className="text-xs text-muted-foreground mb-2">Transfer via GPay, PhonePe, or Paytm to:</p>
+                  <p className="text-xs text-muted-foreground mb-2">Transfer via <strong className="text-foreground font-semibold">Google Pay (GPay)</strong> to:</p>
                   <div className="bg-muted/80 p-2.5 rounded-lg font-mono text-xs text-foreground select-all border border-border/60 mb-3">
                     satendrakumarparteti@oksbi
                   </div>
@@ -220,6 +221,9 @@ const PricingPage = () => {
               </div>
             </div>
           </div>
+
+          {/* Interactive Payment Submission Form */}
+          <PaymentSubmitForm />
         </div>
       </section>
 
